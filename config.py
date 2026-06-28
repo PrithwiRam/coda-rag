@@ -58,7 +58,7 @@ RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 # Confidence Gate
 # ==============================================================================
 
-CONFIDENCE_THRESHOLD = 0.5
+CONFIDENCE_THRESHOLD = 0.0
 FALLBACK_EXTRA_K = 10     # additional chunks to retrieve on fallback
 
 # ==============================================================================

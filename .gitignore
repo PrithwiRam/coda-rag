@@ -13,3 +13,4 @@ indexes/
 *.egg-info/
 build/
 # any other IDE folders
+data/

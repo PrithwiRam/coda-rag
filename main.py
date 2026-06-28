@@ -33,6 +33,108 @@ from typing import List, Dict, Optional
 # ---------------------------------------------------------------------------
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import config  # noqa: E402
+sample_documents = [
+    {
+        "doc_id": "doc_india_economy",
+        "title": "Indian Economy",
+        "text": (
+            "India is the world's fifth-largest economy by nominal GDP and "
+            "the third-largest by purchasing power parity (PPP). As of 2024, "
+            "India's nominal GDP is estimated at approximately $3.94 trillion. "
+            "The Indian economy is driven by a large services sector, which "
+            "contributes about 54% of GDP, followed by industry at 26% and "
+            "agriculture at 20%. Key economic indicators include a GDP growth "
+            "rate of 7.2% in FY2024, making India one of the fastest-growing "
+            "major economies. The country has significant economic reforms "
+            "including GST implementation, digital payments infrastructure "
+            "like UPI, and the Make in India manufacturing initiative. "
+            "Major cities like Mumbai, Delhi, and Bangalore serve as economic "
+            "hubs. India's foreign exchange reserves stood at approximately "
+            "$620 billion in 2024. The country is a member of BRICS, G20, "
+            "and the World Trade Organization."
+        ),
+    },
+    {
+        "doc_id": "doc_neural_networks",
+        "title": "Neural Networks and Deep Learning",
+        "text": (
+            "Neural networks are computational models inspired by the biological "
+            "neural networks in the human brain. They consist of layers of "
+            "interconnected nodes (neurons) that process information using "
+            "connectionist approaches. Deep learning, a subset of machine "
+            "learning, uses neural networks with multiple hidden layers to "
+            "learn hierarchical representations of data. The learning process "
+            "involves forward propagation, where input data flows through "
+            "the network to produce predictions, and backpropagation, where "
+            "gradients of the loss function are computed and used to update "
+            "weights via gradient descent optimization. Key architectures "
+            "include Convolutional Neural Networks (CNNs) for image processing, "
+            "Recurrent Neural Networks (RNNs) for sequential data, and "
+            "Transformers for natural language processing. The attention "
+            "mechanism, introduced in the 'Attention Is All You Need' paper "
+            "by Vaswani et al. (2017), revolutionized NLP by allowing models "
+            "to weigh the importance of different parts of the input. Modern "
+            "large language models like GPT-4 and LLaMA use transformer "
+            "architectures with billions of parameters trained on massive "
+            "text corpora."
+        ),
+    },
+    {
+        "doc_id": "doc_climate_agriculture",
+        "title": "Climate Change and Agriculture",
+        "text": (
+            "Climate change poses significant threats to global agriculture "
+            "and food security. Rising temperatures affect crop yields, with "
+            "studies showing that for every 1°C increase in global mean "
+            "temperature, wheat yields decline by approximately 6%, rice "
+            "yields by 3.2%, and maize yields by 7.4%. Changes in precipitation "
+            "patterns lead to both droughts and floods, disrupting growing "
+            "seasons and damaging crops. The increased frequency of extreme "
+            "weather events, including heat waves, hurricanes, and unseasonal "
+            "frost, causes direct crop losses and infrastructure damage. "
+            "Climate change also affects agriculture indirectly through "
+            "changes in pest and disease patterns, soil degradation, and "
+            "water availability. Adaptation strategies include developing "
+            "drought-resistant crop varieties, implementing precision "
+            "agriculture techniques, improving irrigation efficiency, and "
+            "diversifying crop portfolios. Carbon sequestration through "
+            "regenerative farming practices can help mitigate climate change "
+            "while improving soil health. The IPCC estimates that without "
+            "adaptation, global crop production could decline by 2-6% per "
+            "decade due to climate change."
+        ),
+    },
+    {
+        "doc_id": "doc_quantum_computing",
+        "title": "Quantum Computing",
+        "text": (
+            "Quantum computing leverages the principles of quantum mechanics, "
+            "including superposition and entanglement, to process information "
+            "in fundamentally different ways from classical computers. A quantum "
+            "bit (qubit) can exist in a superposition of states, representing "
+            "both 0 and 1 simultaneously, unlike classical bits. This allows "
+            "quantum computers to explore multiple solutions in parallel. "
+            "Key algorithms include Shor's algorithm for integer factorization "
+            "(threatening RSA encryption), Grover's algorithm for database "
+            "search (quadratic speedup), and the Variational Quantum "
+            "Eigensolver (VQE) for chemistry simulations. Major players "
+            "include IBM (with its 1,121-qubit Condor processor), Google "
+            "(which demonstrated quantum supremacy with Sycamore), and "
+            "various startups like IonQ and Rigetti. Challenges include "
+            "quantum decoherence, error correction overhead, and the need "
+            "for extreme cooling (millikelvin temperatures). Applications "
+            "span drug discovery, financial optimization, cryptography, "
+            "and materials science."
+        ),
+    },
+    {
+        "doc_id": "doc_user_profile",
+        "title": "User Profile - Harinarayanan",
+        "text": "Name: Harinarayanan. From Vengara, Malappuram, Kerala. Studying IMSC in Computer Science AI and ML. Loves programming. Currently interning at IIIT Kottayam. Age: 22. Harinarayanan is 22 years old. He is 22 years old."
+
+    },
+]
+
 
 # ---------------------------------------------------------------------------
 # Pipeline component imports

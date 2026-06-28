@@ -18,3 +18,26 @@
 3️⃣ If you prefer a different LLM, edit `config.py` (`LLM_BACKEND = "openai"` and set `OPENAI_API_KEY`).
 
 The system is ready for further experimentation.
+
+**How the pipeline works for a user prompt**
+When a user sends a query, the system first classifies it, retrieves the most relevant document chunks, optionally reranks them, runs a confidence check, selects a token‑budget‑limited context (ACOA), and finally feeds that reduced context together with the original query to the LLM. The LLM never accesses the whole document store directly; it only sees the small curated context.
+
+**Testing interactively**
+In a Python REPL you can do:
+
+```python
+from main import ACORAPipeline
+pipeline = ACORAPipeline()
+pipeline.initialize(sample_documents)   # or your own docs
+result = pipeline.query("Your question here")
+print(result["answer"])
+```
+
+Or simply run the demo script again and edit the `demo_queries` list in `main.py` with your own prompt. The script will print the classification, retrieval stats, and the final answer.
+
+**Running via command line**
+The repository ships a small CLI helper:
+
+```bash
+./venv/bin/python -c "from main import ACORAPipeline; p=ACORAPipeline(); p.initialize(sample_documents); print(p.query('What is the capital of France?')['answer'])"
+```

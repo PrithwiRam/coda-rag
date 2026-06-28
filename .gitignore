@@ -1,0 +1,15 @@
+__pycache__/
+venv/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite
+*.db
+.DS_Store
+results/
+indexes/
+.env
+.idea/
+*.egg-info/
+build/
+# any other IDE folders

@@ -143,6 +143,11 @@ from pipeline.document_processor import DocumentProcessor
 from pipeline.confidence_gate import ConfidenceGate
 from pipeline.acoa import ACOA
 from pipeline.generator import LLMGenerator
+from pipeline.query_encoder import QueryEncoder
+from pipeline.retrieval_computation_planner import RetrievalComputationPlanner
+from pipeline.confidence_predictor import ConfidencePredictor
+from pipeline.mosaic import MOSAIC
+from pipeline.reward_computer import RewardComputer
 
 # ---------------------------------------------------------------------------
 # Logger
@@ -156,10 +161,10 @@ logger = logging.getLogger(__name__)
 
 
 class ACORAPipeline:
-    """End-to-end ACORA pipeline.
+    """End-to-end ACORA v2 pipeline.
 
     Integrates all components from document processing through answer
-    generation.  Must be initialised with documents before querying.
+    generation. Must be initialised with documents before querying.
 
     Attributes:
         is_initialized (bool): Whether the pipeline has been initialised
@@ -167,11 +172,7 @@ class ACORAPipeline:
     """
 
     def __init__(self) -> None:
-        """Initialise all pipeline components.
-
-        Components that require data (retrievers) will be fully set up
-        during ``initialize()``.
-        """
+        """Initialise all pipeline components."""
         logger.info("=" * 60)
         logger.info("Initialising ACORA Pipeline components...")
         logger.info("=" * 60)
@@ -184,22 +185,24 @@ class ACORAPipeline:
         self.dense_retriever = None
         self.hybrid_retriever = None
 
-        # Query analysis
-        self.query_feature_extractor = None
-        self.query_classifier = None
-        self.adaptive_router = None
+        # Query analysis (v2)
+        self.query_encoder = None
+        self.rcp = None # RetrievalComputationPlanner
 
         # Reranker
         self.reranker = None
 
-        # Confidence gate
-        self.confidence_gate = ConfidenceGate()
+        # Confidence Predictor (v2)
+        self.confidence_predictor = None
 
-        # ACOA context optimizer
-        self.acoa = ACOA()
+        # MOSAIC context optimizer (v2)
+        self.mosaic = None
 
         # LLM generator
         self.generator = None
+
+        # Reward Computer (v2)
+        self.reward_computer = None
 
         # Pipeline state
         self.is_initialized = False
@@ -211,30 +214,20 @@ class ACORAPipeline:
         logger.info("ACORA Pipeline components created (not yet initialised with data).")
 
     def _init_components(self) -> None:
-        """Lazy-initialise components with potentially heavy imports.
-
-        Components that fail to import are set to None and the pipeline
-        will use fallback behaviour.
-        """
-        # --- Query Feature Extractor ---
+        """Lazy-initialise components with potentially heavy imports."""
+        # --- Query Encoder (v2) ---
         try:
-            from pipeline.query_feature_extractor import QueryFeatureExtractor
-            self.query_feature_extractor = QueryFeatureExtractor()
-        except (ImportError, Exception) as e:
-            logger.warning("QueryFeatureExtractor unavailable: %s", e)
-            self.query_feature_extractor = None
+            self.query_encoder = QueryEncoder()
+        except Exception as e:
+            logger.warning("QueryEncoder unavailable: %s", e)
+            self.query_encoder = None
 
-        # --- Query Classifier ---
+        # --- Retrieval Computation Planner (v2) ---
         try:
-            from pipeline.query_classifier import QueryClassifier
-            self.query_classifier = QueryClassifier()
-        except (ImportError, Exception) as e:
-            logger.warning("QueryClassifier unavailable: %s", e)
-            self.query_classifier = None
-
-        # --- Adaptive Router ---
-        # Note: AdaptiveRouter is initialised in initialize() after retrievers are built
-        self.adaptive_router = None
+            self.rcp = RetrievalComputationPlanner()
+        except Exception as e:
+            logger.warning("RetrievalComputationPlanner unavailable: %s", e)
+            self.rcp = None
 
         # --- Cross-Encoder Reranker ---
         try:
@@ -243,6 +236,27 @@ class ACORAPipeline:
         except (ImportError, Exception) as e:
             logger.warning("CrossEncoderReranker unavailable: %s", e)
             self.reranker = None
+
+        # --- Confidence Predictor (v2) ---
+        try:
+            self.confidence_predictor = ConfidencePredictor()
+        except Exception as e:
+            logger.warning("ConfidencePredictor unavailable: %s", e)
+            self.confidence_predictor = None
+
+        # --- MOSAIC (v2) ---
+        try:
+            self.mosaic = MOSAIC()
+        except Exception as e:
+            logger.warning("MOSAIC unavailable: %s", e)
+            self.mosaic = None
+            
+        # --- Reward Computer (v2) ---
+        try:
+            self.reward_computer = RewardComputer()
+        except Exception as e:
+            logger.warning("RewardComputer unavailable: %s", e)
+            self.reward_computer = None
 
         # --- LLM Generator ---
         try:
@@ -328,213 +342,136 @@ class ACORAPipeline:
         logger.info("ACORA Pipeline initialised and ready for queries.")
 
     def query(self, query_text: str) -> Dict:
-        """Process a single query through the full ACORA pipeline.
+        """Process a single query through the full ACORA v2 pipeline.
 
         Pipeline stages:
-            1. Classify query → determine query type
-            2. Route → select retrieval strategy
-            3. Retrieve → fetch candidate chunks
-            4. Rerank → refine ordering with cross-encoder
-            5. Confidence gate → validate quality (fallback if needed)
-            6. ACOA → optimize context (select, deduplicate, budget)
+            1. Encode Query → extract features (QueryEncoder)
+            2. Compute Plan → select optimal execution plan (RCP)
+            3. Retrieve → fetch candidate chunks based on plan
+            4. Rerank → refine ordering (if plan says so)
+            5. Predict Confidence → validate quality
+            6. MOSAIC → submodular context assembly based on plan budget
             7. Generate → produce answer with LLM
+            8. Reward → compute multi-objective reward and update RCP
 
         Args:
             query_text: The user's question.
 
         Returns:
-            Comprehensive result dictionary::
-
-                {
-                    "answer":             str,
-                    "query":              str,
-                    "classification":     dict,
-                    "retrieval_results":  list,
-                    "reranked_results":   list,
-                    "confidence":         dict,
-                    "acoa_stats":         dict,
-                    "context":            str,
-                    "latency_ms":         float,
-                    "retrieval_calls":    int,
-                }
+            Comprehensive result dictionary.
         """
         if not self.is_initialized:
             return {
                 "answer": "[Error] Pipeline not initialised. Call initialize() first.",
                 "query": query_text,
-                "classification": {},
-                "retrieval_results": [],
-                "reranked_results": [],
-                "confidence": {},
-                "acoa_stats": {},
-                "context": "",
                 "latency_ms": 0.0,
-                "retrieval_calls": 0,
             }
 
         start_time = time.perf_counter()
         retrieval_calls = 0
 
         # ==================================================================
-        # Stages 1-3: Classification, Routing, and Retrieval
+        # Stage 1 & 2: Encode Query and Generate Execution Plan
+        # ==================================================================
+        q_features = {}
+        plan = None
+        
+        if self.query_encoder and self.rcp:
+            try:
+                q_features = self.query_encoder.encode(query_text)
+                ctx_vec = self.query_encoder.to_context_vector(q_features)
+                plan = self.rcp.select_plan(ctx_vec)
+                logger.info("RCP Plan: %s (depth=%d, budget=%d)", 
+                            plan.strategy, plan.retrieval_depth, plan.token_budget)
+            except Exception as e:
+                logger.warning("RCP planning failed: %s. Using default plan.", e)
+                
+        if not plan:
+            # Fallback default plan
+            from pipeline.execution_plan import ExecutionPlan
+            plan = ExecutionPlan.from_defaults(0)
+
+        # ==================================================================
+        # Stage 3: Retrieval Execution
         # ==================================================================
         retrieval_results = []
-        classification = {
-            "label": config.QUERY_TYPE_AMBIGUOUS,
-            "query_type": config.QUERY_TYPE_AMBIGUOUS,
-            "confidence": 0.0,
-            "method": "fallback",
-            "features": {},
-        }
-        retrieval_calls = 0
-        top_k = config.HYBRID_TOP_K
+        top_k = plan.retrieval_depth
+        
+        try:
+            if plan.strategy == "bm25" and self.bm25_retriever:
+                retrieval_results = self.bm25_retriever.retrieve(query_text, top_k=top_k)
+                retrieval_calls = 1
+            elif plan.strategy == "dense" and self.dense_retriever:
+                retrieval_results = self.dense_retriever.retrieve(query_text, top_k=top_k)
+                retrieval_calls = 1
+            elif self.hybrid_retriever:
+                retrieval_results = self.hybrid_retriever.retrieve(query_text, top_k=top_k)
+                retrieval_calls = 2
+        except Exception as e:
+            logger.error("Retrieval execution failed: %s", e)
 
-        if self.adaptive_router is not None:
-            try:
-                retrieval_results, route_info = self.adaptive_router.route(query_text, top_k=top_k)
-                classification = dict(route_info)
-                classification["query_type"] = classification.get("label", config.QUERY_TYPE_AMBIGUOUS)
-                
-                routed_to = classification.get("routed_to", "hybrid_retriever")
-                if routed_to == "hybrid_retriever":
-                    retrieval_calls = 2
-                else:
-                    retrieval_calls = 1
-            except Exception as e:
-                logger.warning("Adaptive routing and retrieval failed: %s. Using manual fallback.", e)
-
-        # Fallback if router was unavailable or routing failed to retrieve results
-        if not retrieval_results:
-            if self.query_classifier is not None:
-                try:
-                    classification = self.query_classifier.classify(query_text)
-                    classification["query_type"] = classification.get("label", config.QUERY_TYPE_AMBIGUOUS)
-                except Exception as e:
-                    logger.warning("Query classification failed: %s. Using AMBIGUOUS fallback.", e)
-            
-            label = classification.get("label", config.QUERY_TYPE_AMBIGUOUS)
-            logger.info("Using manual retrieval path for label: %s", label)
-            try:
-                if label == config.QUERY_TYPE_LEXICAL and self.bm25_retriever:
-                    retrieval_results = self.bm25_retriever.retrieve(query_text, top_k=top_k)
-                    retrieval_calls = 1
-                elif label == config.QUERY_TYPE_SEMANTIC and self.dense_retriever:
-                    retrieval_results = self.dense_retriever.retrieve(query_text, top_k=top_k)
-                    retrieval_calls = 1
-                elif self.hybrid_retriever:
-                    retrieval_results = self.hybrid_retriever.retrieve(query_text, top_k=top_k)
-                    retrieval_calls = 2
-                elif self.bm25_retriever:
-                    retrieval_results = self.bm25_retriever.retrieve(query_text, top_k=top_k)
-                    retrieval_calls = 1
-                elif self.dense_retriever:
-                    retrieval_results = self.dense_retriever.retrieve(query_text, top_k=top_k)
-                    retrieval_calls = 1
-                else:
-                    logger.error("No retrievers available for manual retrieval fallback!")
-            except Exception as e:
-                logger.error("Manual retrieval fallback failed: %s", e)
-
-        logger.info("Query classified as: %s (confidence=%.2f)",
-                    classification.get("label"), classification.get("confidence", 0.0))
         logger.info("Retrieved %d candidates.", len(retrieval_results))
 
         # ==================================================================
-        # Stage 4: Rerank
+        # Stage 4: Conditional Reranking
         # ==================================================================
         reranked_results = retrieval_results
 
-        if self.reranker is not None and retrieval_results:
+        if plan.rerank and self.reranker is not None and retrieval_results:
             try:
+                rerank_depth = plan.rerank_depth if plan.rerank_depth > 0 else config.RERANK_TOP_K
                 reranked_results = self.reranker.rerank(
                     query_text,
                     retrieval_results,
-                    top_k=config.RERANK_TOP_K,
+                    top_k=rerank_depth,
                 )
                 logger.info("Reranked to top-%d results.", len(reranked_results))
             except Exception as e:
                 logger.warning("Reranking failed: %s. Using original order.", e)
 
         # ==================================================================
-        # Stage 5: Confidence Gate
+        # Stage 5: Confidence Prediction
         # ==================================================================
-        confidence = self.confidence_gate.evaluate(query_text, reranked_results)
-
-        if not confidence["passed"]:
-            logger.info(
-                "Confidence gate FAILED (%.3f < %.3f). Triggering fallback...",
-                confidence["confidence"], self.confidence_gate.threshold,
-            )
-
-            # Fallback: retrieve additional chunks and re-evaluate
+        confidence = {'confident': True, 'score': 1.0}
+        if self.confidence_predictor:
             try:
-                extra_k = config.FALLBACK_EXTRA_K
-                fallback_strategy = "hybrid" if self.hybrid_retriever else "lexical"
-
-                if fallback_strategy == "hybrid" and self.hybrid_retriever:
-                    extra_results = self.hybrid_retriever.retrieve(
-                        query_text, top_k=top_k + extra_k
-                    )
-                    retrieval_calls += 2
-                elif self.bm25_retriever:
-                    extra_results = self.bm25_retriever.retrieve(
-                        query_text, top_k=top_k + extra_k
-                    )
-                    retrieval_calls += 1
-                else:
-                    extra_results = []
-
-                if extra_results:
-                    # Merge and deduplicate
-                    seen_ids = {
-                        r.get("chunk", {}).get("chunk_id")
-                        for r in reranked_results
-                    }
-                    for r in extra_results:
-                        cid = r.get("chunk", {}).get("chunk_id")
-                        if cid not in seen_ids:
-                            reranked_results.append(r)
-                            seen_ids.add(cid)
-
-                    # Re-rerank if reranker is available
-                    if self.reranker is not None:
-                        reranked_results = self.reranker.rerank(
-                            query_text,
-                            reranked_results,
-                            top_k=config.RERANK_TOP_K + extra_k,
-                        )
-
-                    # Re-evaluate confidence
-                    confidence = self.confidence_gate.evaluate(
-                        query_text, reranked_results
-                    )
-                    logger.info(
-                        "Post-fallback confidence: %.3f (passed=%s)",
-                        confidence["confidence"], confidence["passed"],
-                    )
-
+                confidence = self.confidence_predictor.predict_confidence(reranked_results, query_text)
+                logger.info("Confidence: %.3f (passed=%s)", confidence.get('score', 0.0), confidence.get('confident', False))
             except Exception as e:
-                logger.warning("Fallback retrieval failed: %s", e)
+                logger.warning("Confidence prediction failed: %s", e)
 
         # ==================================================================
-        # Stage 6: ACOA – Adaptive Context Optimization
+        # Stage 6: MOSAIC Context Assembly
         # ==================================================================
-        acoa_result = self.acoa.optimize(reranked_results)
-        selected_chunks = acoa_result.get("selected_chunks", [])
-        context = self.acoa.build_context(selected_chunks)
-
-        logger.info(
-            "ACOA selected %d chunks (%d tokens).",
-            acoa_result.get("num_selected", 0),
-            acoa_result.get("total_tokens", 0),
-        )
+        mosaic_result = {}
+        context = ""
+        if self.mosaic:
+            try:
+                mosaic_result = self.mosaic.select_context(
+                    query=query_text,
+                    candidates=reranked_results,
+                    token_budget=plan.token_budget,
+                    weights=plan.mosaic_weights
+                )
+                
+                # Build context string
+                selected_chunks = mosaic_result.get("selected_chunks", [])
+                context = "\n\n".join([f"[{i+1}] {c.get('chunk', {}).get('text', '')}" 
+                                      for i, c in enumerate(selected_chunks)])
+                                      
+                logger.info("MOSAIC selected %d chunks (%d tokens).",
+                            mosaic_result.get("num_selected", 0),
+                            mosaic_result.get("total_tokens", 0))
+            except Exception as e:
+                logger.warning("MOSAIC assembly failed: %s", e)
+                # Simple fallback
+                context = "\n\n".join([c.get('chunk', {}).get('text', '') for c in reranked_results[:3]])
 
         # ==================================================================
         # Stage 7: Generate answer
         # ==================================================================
         answer = "[No generator available]"
-        gen_result = {}
-
+        
         if self.generator is not None:
             try:
                 gen_result = self.generator.generate(query=query_text, context=context)
@@ -543,19 +480,37 @@ class ACORAPipeline:
                 logger.error("LLM generation failed: %s", e)
                 answer = f"[Generation Error] {e}"
 
-        # ==================================================================
-        # Compile final result
-        # ==================================================================
         total_latency = (time.perf_counter() - start_time) * 1000
+
+        # ==================================================================
+        # Stage 8: Reward Computation & RCP Update
+        # ==================================================================
+        reward_info = {}
+        if self.reward_computer and self.rcp and hasattr(plan, '_arm_index'):
+            try:
+                temp_result = {
+                    "latency_ms": total_latency,
+                    "acoa_stats": mosaic_result, # map to old key for compat
+                    "confidence": confidence
+                }
+                reward_info = self.reward_computer.compute_reward(temp_result)
+                
+                # Update Bandit
+                ctx_vec = self.query_encoder.to_context_vector(q_features)
+                self.rcp.update(ctx_vec, plan._arm_index, reward_info.get('composite_reward', 0.0))
+                logger.info("RCP updated. Reward: %.3f", reward_info.get('composite_reward', 0.0))
+            except Exception as e:
+                logger.warning("Reward computation/update failed: %s", e)
 
         result = {
             "answer": answer,
             "query": query_text,
-            "classification": classification,
+            "plan": plan.to_dict(),
             "retrieval_results": retrieval_results,
             "reranked_results": reranked_results,
             "confidence": confidence,
-            "acoa_stats": acoa_result.get("optimization_stats", {}),
+            "mosaic_stats": mosaic_result,
+            "reward_info": reward_info,
             "context": context,
             "latency_ms": round(total_latency, 2),
             "retrieval_calls": retrieval_calls,
@@ -750,8 +705,9 @@ if __name__ == "__main__":
         result = pipeline.query(query_text)
 
         # Print results
-        print(f"\n  📋 Classification: {result['classification'].get('query_type', 'N/A')}")
-        print(f"     Confidence:     {result['classification'].get('confidence', 0.0):.3f}")
+        plan = result.get('plan', {})
+        print(f"\n  📋 Plan Strategy:  {plan.get('strategy', 'N/A')}")
+        print(f"     Depth/Budget:   {plan.get('retrieval_depth', 'N/A')} / {plan.get('token_budget', 'N/A')}")
 
         print(f"\n  🔍 Retrieval:")
         print(f"     Candidates:     {len(result['retrieval_results'])}")
@@ -760,14 +716,18 @@ if __name__ == "__main__":
 
         print(f"\n  🚪 Confidence Gate:")
         conf = result['confidence']
-        print(f"     Passed:         {conf.get('passed', 'N/A')}")
-        print(f"     Score:          {conf.get('confidence', 0.0):.3f}")
+        print(f"     Passed:         {conf.get('confident', conf.get('passed', 'N/A'))}")
+        print(f"     Score:          {conf.get('score', conf.get('confidence', 0.0)):.3f}")
 
-        print(f"\n  ⚡ ACOA Stats:")
-        acoa = result['acoa_stats']
-        print(f"     Token budget:   {acoa.get('token_budget', 'N/A')}")
-        print(f"     Candidates:     {acoa.get('candidates_considered', 'N/A')}")
-        print(f"     Avg density:    {acoa.get('avg_density', 'N/A')}")
+        print(f"\n  ⚡ MOSAIC Stats:")
+        mosaic = result.get('mosaic_stats', {})
+        print(f"     Token budget:   {mosaic.get('token_budget', 'N/A')}")
+        print(f"     Selected chunks:{mosaic.get('num_selected', 'N/A')}")
+        print(f"     Tokens used:    {mosaic.get('total_tokens', 'N/A')}")
+        
+        print(f"\n  🏆 RCP Reward:")
+        reward = result.get('reward_info', {})
+        print(f"     Composite:      {reward.get('composite_reward', 0.0):.3f}")
 
         print(f"\n  ⏱️  Latency:        {result['latency_ms']:.0f}ms")
 

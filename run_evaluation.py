@@ -662,8 +662,8 @@ def run_evaluation() -> Dict:
     documents = dataset["documents"]
     eval_queries = dataset["queries"]
 
-    # Slice queries to run a fast but representative evaluation (5 queries)
-    eval_queries = eval_queries[:5]
+    # Slice queries to run a fast but representative evaluation (10 queries)
+    eval_queries = eval_queries[:10]
 
     print(f"   Documents: {len(documents)}")
     print(f"   Queries (Evaluating Subset): {len(eval_queries)}")
@@ -721,6 +721,16 @@ def run_evaluation() -> Dict:
                 generator=acora_pipeline.generator,
             )
             print("   ✅ Standard-RAG baseline ready.")
+
+        # Self-RAG Baseline Setup
+        if acora_pipeline.dense_retriever and acora_pipeline.generator:
+            from baselines.self_rag import SelfRAGBaseline
+            baselines["Self-RAG"] = SelfRAGBaseline(
+                dense_retriever=acora_pipeline.dense_retriever,
+                generator=acora_pipeline.generator,
+                top_k=5
+            )
+            print("   ✅ Self-RAG baseline ready.")
 
     except Exception as e:
         logger.warning("Some baselines failed to initialise: %s", e)

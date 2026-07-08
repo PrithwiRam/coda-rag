@@ -1,170 +1,53 @@
-# ACORA
+# CODA-RAG: Constraint-Oriented Dual-Agent RAG
 
-**A Comprehensive Retrieval‑Augmented Generation (RAG) Framework**
+**A Resource-Constrained Agentic Retrieval-Curation Framework**
 
-ACORA is a research‑grade codebase designed to explore and benchmark various RAG pipelines. It provides:
-- Modular pipeline components (retrievers, rerankers, generators, adaptive routing, confidence gating).
-- Several baseline systems for quick comparison.
-- Evaluation scripts with standard RAG metrics (BLEU, ROUGE, Retrieval Recall, etc.).
-- Configurable experiments via .
-
-## 📦 Installation
-Requirement already satisfied: langchain>=0.2.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 5)) (1.3.11)
-Requirement already satisfied: langchain-community>=0.2.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 6)) (0.4.2)
-Requirement already satisfied: langchain-openai>=0.1.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 7)) (1.3.3)
-Requirement already satisfied: faiss-cpu>=1.7.4 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 10)) (1.14.3)
-Requirement already satisfied: sentence-transformers>=2.2.2 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 11)) (5.6.0)
-Requirement already satisfied: rank-bm25>=0.2.2 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 14)) (0.2.2)
-Requirement already satisfied: spacy>=3.7.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 20)) (3.8.14)
-Requirement already satisfied: scikit-learn>=1.3.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 23)) (1.9.0)
-Requirement already satisfied: joblib>=1.3.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 24)) (1.5.3)
-Requirement already satisfied: datasets>=2.14.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 27)) (5.0.0)
-Requirement already satisfied: pandas>=2.0.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 28)) (3.0.3)
-Requirement already satisfied: numpy>=1.24.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 29)) (2.5.0)
-Requirement already satisfied: ollama>=0.2.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 32)) (0.6.2)
-Requirement already satisfied: matplotlib>=3.7.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 38)) (3.11.0)
-Requirement already satisfied: seaborn>=0.12.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 39)) (0.13.2)
-Requirement already satisfied: tabulate>=0.9.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 40)) (0.10.0)
-Requirement already satisfied: tqdm>=4.65.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 43)) (4.68.3)
-Requirement already satisfied: python-dotenv>=1.0.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 44)) (1.2.2)
-Requirement already satisfied: tiktoken>=0.5.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 45)) (0.13.0)
-Requirement already satisfied: langchain-core<2.0.0,>=1.4.7 in ./venv/lib/python3.12/site-packages (from langchain>=0.2.0->-r requirements.txt (line 5)) (1.4.8)
-Requirement already satisfied: langgraph<1.3.0,>=1.2.5 in ./venv/lib/python3.12/site-packages (from langchain>=0.2.0->-r requirements.txt (line 5)) (1.2.6)
-Requirement already satisfied: pydantic<3.0.0,>=2.7.4 in ./venv/lib/python3.12/site-packages (from langchain>=0.2.0->-r requirements.txt (line 5)) (2.13.4)
-Requirement already satisfied: jsonpatch<2.0.0,>=1.33.0 in ./venv/lib/python3.12/site-packages (from langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (1.33)
-Requirement already satisfied: langchain-protocol>=0.0.17 in ./venv/lib/python3.12/site-packages (from langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (0.0.18)
-Requirement already satisfied: langsmith<1.0.0,>=0.3.45 in ./venv/lib/python3.12/site-packages (from langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (0.9.1)
-Requirement already satisfied: packaging>=23.2.0 in ./venv/lib/python3.12/site-packages (from langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (26.2)
-Requirement already satisfied: pyyaml<7.0.0,>=5.3.0 in ./venv/lib/python3.12/site-packages (from langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (6.0.3)
-Requirement already satisfied: tenacity!=8.4.0,<10.0.0,>=8.1.0 in ./venv/lib/python3.12/site-packages (from langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (9.1.4)
-Requirement already satisfied: typing-extensions<5.0.0,>=4.7.0 in ./venv/lib/python3.12/site-packages (from langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (4.15.0)
-Requirement already satisfied: uuid-utils<1.0,>=0.12.0 in ./venv/lib/python3.12/site-packages (from langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (0.16.2)
-Requirement already satisfied: jsonpointer>=1.9 in ./venv/lib/python3.12/site-packages (from jsonpatch<2.0.0,>=1.33.0->langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (3.1.1)
-Requirement already satisfied: langgraph-checkpoint<5.0.0,>=4.1.0 in ./venv/lib/python3.12/site-packages (from langgraph<1.3.0,>=1.2.5->langchain>=0.2.0->-r requirements.txt (line 5)) (4.1.1)
-Requirement already satisfied: langgraph-prebuilt<1.2.0,>=1.1.0 in ./venv/lib/python3.12/site-packages (from langgraph<1.3.0,>=1.2.5->langchain>=0.2.0->-r requirements.txt (line 5)) (1.1.0)
-Requirement already satisfied: langgraph-sdk<0.5.0,>=0.4.2 in ./venv/lib/python3.12/site-packages (from langgraph<1.3.0,>=1.2.5->langchain>=0.2.0->-r requirements.txt (line 5)) (0.4.2)
-Requirement already satisfied: xxhash>=3.5.0 in ./venv/lib/python3.12/site-packages (from langgraph<1.3.0,>=1.2.5->langchain>=0.2.0->-r requirements.txt (line 5)) (3.7.1)
-Requirement already satisfied: ormsgpack>=1.12.0 in ./venv/lib/python3.12/site-packages (from langgraph-checkpoint<5.0.0,>=4.1.0->langgraph<1.3.0,>=1.2.5->langchain>=0.2.0->-r requirements.txt (line 5)) (1.12.2)
-Requirement already satisfied: httpx>=0.25.2 in ./venv/lib/python3.12/site-packages (from langgraph-sdk<0.5.0,>=0.4.2->langgraph<1.3.0,>=1.2.5->langchain>=0.2.0->-r requirements.txt (line 5)) (0.28.1)
-Requirement already satisfied: orjson>=3.11.5 in ./venv/lib/python3.12/site-packages (from langgraph-sdk<0.5.0,>=0.4.2->langgraph<1.3.0,>=1.2.5->langchain>=0.2.0->-r requirements.txt (line 5)) (3.11.9)
-Requirement already satisfied: websockets<16,>=14 in ./venv/lib/python3.12/site-packages (from langgraph-sdk<0.5.0,>=0.4.2->langgraph<1.3.0,>=1.2.5->langchain>=0.2.0->-r requirements.txt (line 5)) (15.0.1)
-Requirement already satisfied: anyio>=3.5.0 in ./venv/lib/python3.12/site-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (4.14.1)
-Requirement already satisfied: distro>=1.7.0 in ./venv/lib/python3.12/site-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (1.9.0)
-Requirement already satisfied: requests-toolbelt>=1.0.0 in ./venv/lib/python3.12/site-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (1.0.0)
-Requirement already satisfied: requests>=2.0.0 in ./venv/lib/python3.12/site-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (2.34.2)
-Requirement already satisfied: sniffio>=1.1 in ./venv/lib/python3.12/site-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (1.3.1)
-Requirement already satisfied: zstandard>=0.23.0 in ./venv/lib/python3.12/site-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (0.25.0)
-Requirement already satisfied: certifi in ./venv/lib/python3.12/site-packages (from httpx>=0.25.2->langgraph-sdk<0.5.0,>=0.4.2->langgraph<1.3.0,>=1.2.5->langchain>=0.2.0->-r requirements.txt (line 5)) (2026.6.17)
-Requirement already satisfied: httpcore==1.* in ./venv/lib/python3.12/site-packages (from httpx>=0.25.2->langgraph-sdk<0.5.0,>=0.4.2->langgraph<1.3.0,>=1.2.5->langchain>=0.2.0->-r requirements.txt (line 5)) (1.0.9)
-Requirement already satisfied: idna in ./venv/lib/python3.12/site-packages (from httpx>=0.25.2->langgraph-sdk<0.5.0,>=0.4.2->langgraph<1.3.0,>=1.2.5->langchain>=0.2.0->-r requirements.txt (line 5)) (3.18)
-Requirement already satisfied: h11>=0.16 in ./venv/lib/python3.12/site-packages (from httpcore==1.*->httpx>=0.25.2->langgraph-sdk<0.5.0,>=0.4.2->langgraph<1.3.0,>=1.2.5->langchain>=0.2.0->-r requirements.txt (line 5)) (0.16.0)
-Requirement already satisfied: annotated-types>=0.6.0 in ./venv/lib/python3.12/site-packages (from pydantic<3.0.0,>=2.7.4->langchain>=0.2.0->-r requirements.txt (line 5)) (0.7.0)
-Requirement already satisfied: pydantic-core==2.46.4 in ./venv/lib/python3.12/site-packages (from pydantic<3.0.0,>=2.7.4->langchain>=0.2.0->-r requirements.txt (line 5)) (2.46.4)
-Requirement already satisfied: typing-inspection>=0.4.2 in ./venv/lib/python3.12/site-packages (from pydantic<3.0.0,>=2.7.4->langchain>=0.2.0->-r requirements.txt (line 5)) (0.4.2)
-Requirement already satisfied: aiohttp<4.0.0,>=3.8.3 in ./venv/lib/python3.12/site-packages (from langchain-community>=0.2.0->-r requirements.txt (line 6)) (3.14.1)
-Requirement already satisfied: httpx-sse<1.0.0,>=0.4.0 in ./venv/lib/python3.12/site-packages (from langchain-community>=0.2.0->-r requirements.txt (line 6)) (0.4.3)
-Requirement already satisfied: langchain-classic<2.0.0,>=1.0.7 in ./venv/lib/python3.12/site-packages (from langchain-community>=0.2.0->-r requirements.txt (line 6)) (1.0.8)
-Requirement already satisfied: pydantic-settings<3.0.0,>=2.10.1 in ./venv/lib/python3.12/site-packages (from langchain-community>=0.2.0->-r requirements.txt (line 6)) (2.14.2)
-Requirement already satisfied: sqlalchemy<3.0.0,>=1.4.0 in ./venv/lib/python3.12/site-packages (from langchain-community>=0.2.0->-r requirements.txt (line 6)) (2.0.51)
-Requirement already satisfied: aiohappyeyeballs>=2.5.0 in ./venv/lib/python3.12/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain-community>=0.2.0->-r requirements.txt (line 6)) (2.6.2)
-Requirement already satisfied: aiosignal>=1.4.0 in ./venv/lib/python3.12/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain-community>=0.2.0->-r requirements.txt (line 6)) (1.4.0)
-Requirement already satisfied: attrs>=17.3.0 in ./venv/lib/python3.12/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain-community>=0.2.0->-r requirements.txt (line 6)) (26.1.0)
-Requirement already satisfied: frozenlist>=1.1.1 in ./venv/lib/python3.12/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain-community>=0.2.0->-r requirements.txt (line 6)) (1.8.0)
-Requirement already satisfied: multidict<7.0,>=4.5 in ./venv/lib/python3.12/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain-community>=0.2.0->-r requirements.txt (line 6)) (6.7.1)
-Requirement already satisfied: propcache>=0.2.0 in ./venv/lib/python3.12/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain-community>=0.2.0->-r requirements.txt (line 6)) (0.5.2)
-Requirement already satisfied: yarl<2.0,>=1.17.0 in ./venv/lib/python3.12/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain-community>=0.2.0->-r requirements.txt (line 6)) (1.24.2)
-Requirement already satisfied: langchain-text-splitters<2.0.0,>=1.1.2 in ./venv/lib/python3.12/site-packages (from langchain-classic<2.0.0,>=1.0.7->langchain-community>=0.2.0->-r requirements.txt (line 6)) (1.1.2)
-Requirement already satisfied: charset_normalizer<4,>=2 in ./venv/lib/python3.12/site-packages (from requests>=2.0.0->langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (3.4.7)
-Requirement already satisfied: urllib3<3,>=1.26 in ./venv/lib/python3.12/site-packages (from requests>=2.0.0->langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.4.7->langchain>=0.2.0->-r requirements.txt (line 5)) (2.7.0)
-Requirement already satisfied: greenlet>=1 in ./venv/lib/python3.12/site-packages (from sqlalchemy<3.0.0,>=1.4.0->langchain-community>=0.2.0->-r requirements.txt (line 6)) (3.5.2)
-Requirement already satisfied: openai<3.0.0,>=2.26.0 in ./venv/lib/python3.12/site-packages (from langchain-openai>=0.1.0->-r requirements.txt (line 7)) (2.44.0)
-Requirement already satisfied: regex in ./venv/lib/python3.12/site-packages (from tiktoken>=0.5.0->-r requirements.txt (line 45)) (2026.5.9)
-Requirement already satisfied: jiter<1,>=0.10.0 in ./venv/lib/python3.12/site-packages (from openai<3.0.0,>=2.26.0->langchain-openai>=0.1.0->-r requirements.txt (line 7)) (0.15.0)
-Requirement already satisfied: transformers<6.0.0,>=4.41.0 in ./venv/lib/python3.12/site-packages (from sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (5.12.1)
-Requirement already satisfied: huggingface-hub>=0.23.0 in ./venv/lib/python3.12/site-packages (from sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (1.20.1)
-Requirement already satisfied: torch>=1.11.0 in ./venv/lib/python3.12/site-packages (from sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (2.12.1)
-Requirement already satisfied: scipy>=1.0.0 in ./venv/lib/python3.12/site-packages (from sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (1.18.0)
-Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in ./venv/lib/python3.12/site-packages (from transformers<6.0.0,>=4.41.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (0.22.2)
-Requirement already satisfied: typer in ./venv/lib/python3.12/site-packages (from transformers<6.0.0,>=4.41.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (0.25.1)
-Requirement already satisfied: safetensors>=0.4.3 in ./venv/lib/python3.12/site-packages (from transformers<6.0.0,>=4.41.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (0.8.0)
-Requirement already satisfied: click>=8.4.0 in ./venv/lib/python3.12/site-packages (from huggingface-hub>=0.23.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (8.4.2)
-Requirement already satisfied: filelock>=3.10.0 in ./venv/lib/python3.12/site-packages (from huggingface-hub>=0.23.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (3.29.4)
-Requirement already satisfied: fsspec>=2023.5.0 in ./venv/lib/python3.12/site-packages (from huggingface-hub>=0.23.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (2026.4.0)
-Requirement already satisfied: hf-xet<2.0.0,>=1.5.1 in ./venv/lib/python3.12/site-packages (from huggingface-hub>=0.23.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (1.5.1)
-Requirement already satisfied: shellingham>=1.3.0 in ./venv/lib/python3.12/site-packages (from typer->transformers<6.0.0,>=4.41.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (1.5.4)
-Requirement already satisfied: rich>=13.8.0 in ./venv/lib/python3.12/site-packages (from typer->transformers<6.0.0,>=4.41.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (15.0.0)
-Requirement already satisfied: annotated-doc>=0.0.2 in ./venv/lib/python3.12/site-packages (from typer->transformers<6.0.0,>=4.41.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (0.0.4)
-Requirement already satisfied: spacy-legacy<3.1.0,>=3.0.11 in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (3.0.12)
-Requirement already satisfied: spacy-loggers<2.0.0,>=1.0.0 in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (1.0.5)
-Requirement already satisfied: murmurhash<1.1.0,>=0.28.0 in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (1.0.15)
-Requirement already satisfied: cymem<2.1.0,>=2.0.2 in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (2.0.13)
-Requirement already satisfied: preshed<3.1.0,>=3.0.2 in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (3.0.13)
-Requirement already satisfied: thinc<8.4.0,>=8.3.12 in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (8.3.13)
-Requirement already satisfied: wasabi<1.2.0,>=0.9.1 in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (1.1.3)
-Requirement already satisfied: srsly<3.0.0,>=2.5.3 in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (2.5.3)
-Requirement already satisfied: catalogue<2.1.0,>=2.0.6 in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (2.0.10)
-Requirement already satisfied: weasel<2.0.0,>=1.0.0 in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (1.0.0)
-Requirement already satisfied: confection<2.0.0,>=1.3.2 in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (1.3.3)
-Requirement already satisfied: jinja2 in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (3.1.6)
-Requirement already satisfied: setuptools in ./venv/lib/python3.12/site-packages (from spacy>=3.7.0->-r requirements.txt (line 20)) (81.0.0)
-Requirement already satisfied: blis<1.4.0,>=1.3.0 in ./venv/lib/python3.12/site-packages (from thinc<8.4.0,>=8.3.12->spacy>=3.7.0->-r requirements.txt (line 20)) (1.3.3)
-Requirement already satisfied: cloudpathlib>=0.7.0 in ./venv/lib/python3.12/site-packages (from weasel<2.0.0,>=1.0.0->spacy>=3.7.0->-r requirements.txt (line 20)) (0.24.0)
-Requirement already satisfied: smart-open>=5.2.1 in ./venv/lib/python3.12/site-packages (from weasel<2.0.0,>=1.0.0->spacy>=3.7.0->-r requirements.txt (line 20)) (7.6.1)
-Requirement already satisfied: narwhals>=2.0.1 in ./venv/lib/python3.12/site-packages (from scikit-learn>=1.3.0->-r requirements.txt (line 23)) (2.22.1)
-Requirement already satisfied: threadpoolctl>=3.5.0 in ./venv/lib/python3.12/site-packages (from scikit-learn>=1.3.0->-r requirements.txt (line 23)) (3.6.0)
-Requirement already satisfied: pyarrow>=21.0.0 in ./venv/lib/python3.12/site-packages (from datasets>=2.14.0->-r requirements.txt (line 27)) (24.0.0)
-Requirement already satisfied: dill<0.4.2,>=0.3.0 in ./venv/lib/python3.12/site-packages (from datasets>=2.14.0->-r requirements.txt (line 27)) (0.4.1)
-Requirement already satisfied: multiprocess<0.70.20 in ./venv/lib/python3.12/site-packages (from datasets>=2.14.0->-r requirements.txt (line 27)) (0.70.19)
-Requirement already satisfied: python-dateutil>=2.8.2 in ./venv/lib/python3.12/site-packages (from pandas>=2.0.0->-r requirements.txt (line 28)) (2.9.0.post0)
-Requirement already satisfied: contourpy>=1.0.1 in ./venv/lib/python3.12/site-packages (from matplotlib>=3.7.0->-r requirements.txt (line 38)) (1.3.3)
-Requirement already satisfied: cycler>=0.10 in ./venv/lib/python3.12/site-packages (from matplotlib>=3.7.0->-r requirements.txt (line 38)) (0.12.1)
-Requirement already satisfied: fonttools>=4.22.0 in ./venv/lib/python3.12/site-packages (from matplotlib>=3.7.0->-r requirements.txt (line 38)) (4.63.0)
-Requirement already satisfied: kiwisolver>=1.3.1 in ./venv/lib/python3.12/site-packages (from matplotlib>=3.7.0->-r requirements.txt (line 38)) (1.5.0)
-Requirement already satisfied: pillow>=9 in ./venv/lib/python3.12/site-packages (from matplotlib>=3.7.0->-r requirements.txt (line 38)) (12.2.0)
-Requirement already satisfied: pyparsing>=3 in ./venv/lib/python3.12/site-packages (from matplotlib>=3.7.0->-r requirements.txt (line 38)) (3.3.2)
-Requirement already satisfied: six>=1.5 in ./venv/lib/python3.12/site-packages (from python-dateutil>=2.8.2->pandas>=2.0.0->-r requirements.txt (line 28)) (1.17.0)
-Requirement already satisfied: markdown-it-py>=2.2.0 in ./venv/lib/python3.12/site-packages (from rich>=13.8.0->typer->transformers<6.0.0,>=4.41.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (4.2.0)
-Requirement already satisfied: pygments<3.0.0,>=2.13.0 in ./venv/lib/python3.12/site-packages (from rich>=13.8.0->typer->transformers<6.0.0,>=4.41.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (2.20.0)
-Requirement already satisfied: mdurl~=0.1 in ./venv/lib/python3.12/site-packages (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers<6.0.0,>=4.41.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (0.1.2)
-Requirement already satisfied: wrapt in ./venv/lib/python3.12/site-packages (from smart-open>=5.2.1->weasel<2.0.0,>=1.0.0->spacy>=3.7.0->-r requirements.txt (line 20)) (2.2.2)
-Requirement already satisfied: sympy>=1.13.3 in ./venv/lib/python3.12/site-packages (from torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (1.14.0)
-Requirement already satisfied: networkx>=2.5.1 in ./venv/lib/python3.12/site-packages (from torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (3.6.1)
-Requirement already satisfied: cuda-toolkit==13.0.2 in ./venv/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (13.0.2)
-Requirement already satisfied: nvidia-cublas<=13.1.1.3,>=13.1.0.3 in ./venv/lib/python3.12/site-packages (from torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (13.1.1.3)
-Requirement already satisfied: cuda-bindings<14,>=13.0.3 in ./venv/lib/python3.12/site-packages (from torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (13.3.1)
-Requirement already satisfied: nvidia-cudnn-cu13==9.20.0.48 in ./venv/lib/python3.12/site-packages (from torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (9.20.0.48)
-Requirement already satisfied: nvidia-cusparselt-cu13==0.8.1 in ./venv/lib/python3.12/site-packages (from torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (0.8.1)
-Requirement already satisfied: nvidia-nccl-cu13==2.29.7 in ./venv/lib/python3.12/site-packages (from torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (2.29.7)
-Requirement already satisfied: nvidia-nvshmem-cu13==3.4.5 in ./venv/lib/python3.12/site-packages (from torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (3.4.5)
-Requirement already satisfied: triton==3.7.1 in ./venv/lib/python3.12/site-packages (from torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (3.7.1)
-Requirement already satisfied: nvidia-cuda-runtime==13.0.96.* in ./venv/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (13.0.96)
-Requirement already satisfied: nvidia-cufft==12.0.0.61.* in ./venv/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (12.0.0.61)
-Requirement already satisfied: nvidia-cufile==1.15.1.6.* in ./venv/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (1.15.1.6)
-Requirement already satisfied: nvidia-cuda-cupti==13.0.85.* in ./venv/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (13.0.85)
-Requirement already satisfied: nvidia-curand==10.4.0.35.* in ./venv/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (10.4.0.35)
-Requirement already satisfied: nvidia-cusolver==12.0.4.66.* in ./venv/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (12.0.4.66)
-Requirement already satisfied: nvidia-cusparse==12.6.3.3.* in ./venv/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (12.6.3.3)
-Requirement already satisfied: nvidia-nvjitlink==13.0.88.* in ./venv/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (13.0.88)
-Requirement already satisfied: nvidia-cuda-nvrtc==13.0.88.* in ./venv/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (13.0.88)
-Requirement already satisfied: nvidia-nvtx==13.0.85.* in ./venv/lib/python3.12/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (13.0.85)
-Requirement already satisfied: cuda-pathfinder>=1.4.2 in ./venv/lib/python3.12/site-packages (from cuda-bindings<14,>=13.0.3->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (1.5.5)
-Requirement already satisfied: mpmath<1.4,>=1.1.0 in ./venv/lib/python3.12/site-packages (from sympy>=1.13.3->torch>=1.11.0->sentence-transformers>=2.2.2->-r requirements.txt (line 11)) (1.3.0)
-Requirement already satisfied: MarkupSafe>=2.0 in ./venv/lib/python3.12/site-packages (from jinja2->spacy>=3.7.0->-r requirements.txt (line 20)) (3.0.3)
-
-## 🚀 Quick Start
-
-
-Configuration is driven by . Adjust model names, paths, and hyper‑parameters there before running.
-
-## 📂 Project Structure
-
-
-## 🧪 Evaluation
-Run  to generate metrics and store results under .
-
-## 📚 References
-- Papers in the repository root (e.g., *Beyond the Embedding…*).
-- Original RAG literature and surveys.
+CODA-RAG is a research-grade codebase designed to explore and benchmark constraint-compliant multi-agent retrieval architectures. By leveraging Large Language Model (LLM) orchestration in a stateful reasoning loop, it dynamically routes queries between different specialized retrieval agents under strict latency and token budgets.
 
 ---
-*Happy hacking!*
+
+## 🚀 Key Features
+
+*   **Stateful ReAct Coordinator**: Dynamically schedules query actions and sub-queries using a reasoning-action-observation scratchpad loop.
+*   **Dual-Agent Execution**: 
+    *   *Exploitation Agent*: Highly efficient Lexical retrieval (BM25) for entity-heavy and factual lookups.
+    *   *Exploration Agent*: Dense vector semantic search (FAISS) for broad conceptual understanding.
+*   **Constraint Enforcement Gate (MOSAIC)**: Formulates context assembly as a submodular optimization problem, dynamically relaxing objective weights to fit tight context token limits.
+*   **Multi-Objective Optimization**: Evaluates relevance, latency, redundancy, and confidence to adaptively guide planner routing.
+
+---
+
+## 📦 Installation
+
+To set up the environment, run the following:
+
+```bash
+# Clone the repository
+git clone https://github.com/PrithwiRam/coda-rag.git
+cd coda-rag
+
+# Set up virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+---
+
+## 🛠️ Usage
+
+### Running the Demo
+To execute the pipeline and view the ReAct coordinator's reasoning traces and scratchpad steps:
+
+```bash
+python main.py
+```
+
+### Running the Benchmark
+To evaluate the system against baseline RAG pipelines (lexical, dense, hybrid):
+
+```bash
+python run_evaluation.py
+```

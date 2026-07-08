@@ -144,7 +144,8 @@ from pipeline.confidence_gate import ConfidenceGate
 from pipeline.acoa import ACOA
 from pipeline.generator import LLMGenerator
 from pipeline.query_encoder import QueryEncoder
-from pipeline.retrieval_computation_planner import RetrievalComputationPlanner
+from pipeline.retrieval_computation_planner import RetrievalComputationPlanner, ReActCoordinator
+from pipeline.state_tracker import StateTracker
 from pipeline.confidence_predictor import ConfidencePredictor
 from pipeline.mosaic import MOSAIC
 from pipeline.reward_computer import RewardComputer
@@ -188,6 +189,8 @@ class ACORAPipeline:
         # Query analysis (v2)
         self.query_encoder = None
         self.rcp = None # RetrievalComputationPlanner
+        self.react_coordinator = None # ReActCoordinator (v3)
+        self.v3_mode = True # Default to v3 LLM-Coordinated Planning
 
         # Reranker
         self.reranker = None
@@ -264,6 +267,13 @@ class ACORAPipeline:
         except (ImportError, Exception) as e:
             logger.warning("LLMGenerator unavailable: %s", e)
             self.generator = None
+
+        # --- ReAct Coordinator (v3) ---
+        try:
+            self.react_coordinator = ReActCoordinator(generator=self.generator)
+        except Exception as e:
+            logger.warning("ReActCoordinator unavailable: %s", e)
+            self.react_coordinator = None
 
     # -------------------------------------------------------------------
     # Public API
@@ -370,156 +380,296 @@ class ACORAPipeline:
         start_time = time.perf_counter()
         retrieval_calls = 0
 
-        # ==================================================================
-        # Stage 1 & 2: Encode Query and Generate Execution Plan
-        # ==================================================================
-        q_features = {}
-        plan = None
-        
-        if self.query_encoder and self.rcp:
-            try:
-                q_features = self.query_encoder.encode(query_text)
-                ctx_vec = self.query_encoder.to_context_vector(q_features)
-                plan = self.rcp.select_plan(ctx_vec)
-                logger.info("RCP Plan: %s (depth=%d, budget=%d)", 
-                            plan.strategy, plan.retrieval_depth, plan.token_budget)
-            except Exception as e:
-                logger.warning("RCP planning failed: %s. Using default plan.", e)
+        if self.v3_mode and self.react_coordinator:
+            logger.info("=" * 60)
+            logger.info("ACORA v3 LLM-Coordinated Loop initiated...")
+            logger.info("=" * 60)
+            
+            # Initialize State Tracker
+            state = StateTracker(query_text, token_budget=config.ACOA_TOKEN_BUDGET, max_steps=3)
+            
+            while not state.should_terminate():
+                # 1. Coordinator Decision
+                decision = self.react_coordinator.decide_action(state)
+                action_type = decision.get("action", "TERMINATE_AND_GENERATE")
+                action_query = decision.get("query", query_text)
+                reasoning = decision.get("reasoning", "")
                 
-        if not plan:
-            # Fallback default plan
-            from pipeline.execution_plan import ExecutionPlan
-            plan = ExecutionPlan.from_defaults(0)
-
-        # ==================================================================
-        # Stage 3: Retrieval Execution
-        # ==================================================================
-        retrieval_results = []
-        top_k = plan.retrieval_depth
-        
-        try:
-            if plan.strategy == "bm25" and self.bm25_retriever:
-                retrieval_results = self.bm25_retriever.retrieve(query_text, top_k=top_k)
-                retrieval_calls = 1
-            elif plan.strategy == "dense" and self.dense_retriever:
-                retrieval_results = self.dense_retriever.retrieve(query_text, top_k=top_k)
-                retrieval_calls = 1
-            elif self.hybrid_retriever:
-                retrieval_results = self.hybrid_retriever.retrieve(query_text, top_k=top_k)
-                retrieval_calls = 2
-        except Exception as e:
-            logger.error("Retrieval execution failed: %s", e)
-
-        logger.info("Retrieved %d candidates.", len(retrieval_results))
-
-        # ==================================================================
-        # Stage 4: Conditional Reranking
-        # ==================================================================
-        reranked_results = retrieval_results
-
-        if plan.rerank and self.reranker is not None and retrieval_results:
-            try:
-                rerank_depth = plan.rerank_depth if plan.rerank_depth > 0 else config.RERANK_TOP_K
-                reranked_results = self.reranker.rerank(
-                    query_text,
-                    retrieval_results,
-                    top_k=rerank_depth,
-                )
-                logger.info("Reranked to top-%d results.", len(reranked_results))
-            except Exception as e:
-                logger.warning("Reranking failed: %s. Using original order.", e)
-
-        # ==================================================================
-        # Stage 5: Confidence Prediction
-        # ==================================================================
-        confidence = {'confident': True, 'score': 1.0}
-        if self.confidence_predictor:
-            try:
-                confidence = self.confidence_predictor.predict_confidence(reranked_results, query_text)
-                logger.info("Confidence: %.3f (passed=%s)", confidence.get('score', 0.0), confidence.get('confident', False))
-            except Exception as e:
-                logger.warning("Confidence prediction failed: %s", e)
-
-        # ==================================================================
-        # Stage 6: MOSAIC Context Assembly
-        # ==================================================================
-        mosaic_result = {}
-        context = ""
-        if self.mosaic:
-            try:
-                mosaic_result = self.mosaic.select_context(
-                    query=query_text,
-                    candidates=reranked_results,
-                    token_budget=plan.token_budget,
-                    weights=plan.mosaic_weights
-                )
+                logger.info("Step %d Reasoning: %s", state.step_count + 1, reasoning)
                 
-                # Build context string
-                selected_chunks = mosaic_result.get("selected_chunks", [])
-                context = "\n\n".join([f"[{i+1}] {c.get('chunk', {}).get('text', '')}" 
-                                      for i, c in enumerate(selected_chunks)])
-                                      
-                logger.info("MOSAIC selected %d chunks (%d tokens).",
-                            mosaic_result.get("num_selected", 0),
-                            mosaic_result.get("total_tokens", 0))
-            except Exception as e:
-                logger.warning("MOSAIC assembly failed: %s", e)
-                # Simple fallback
-                context = "\n\n".join([c.get('chunk', {}).get('text', '') for c in reranked_results[:3]])
-
-        # ==================================================================
-        # Stage 7: Generate answer
-        # ==================================================================
-        answer = "[No generator available]"
-        
-        if self.generator is not None:
-            try:
-                gen_result = self.generator.generate(query=query_text, context=context)
-                answer = gen_result.get("answer", "")
-            except Exception as e:
-                logger.error("LLM generation failed: %s", e)
-                answer = f"[Generation Error] {e}"
-
-        total_latency = (time.perf_counter() - start_time) * 1000
-
-        # ==================================================================
-        # Stage 8: Reward Computation & RCP Update
-        # ==================================================================
-        reward_info = {}
-        if self.reward_computer and self.rcp and hasattr(plan, '_arm_index'):
-            try:
-                temp_result = {
-                    "latency_ms": total_latency,
-                    "acoa_stats": mosaic_result, # map to old key for compat
-                    "confidence": confidence
-                }
-                reward_info = self.reward_computer.compute_reward(temp_result)
+                if action_type == "TERMINATE_AND_GENERATE":
+                    state.add_step(reasoning, action_type, action_query, "Termination triggered.")
+                    break
+                    
+                # 2. Dual Agent Execution
+                retrieved_results = []
+                retrieval_calls += 1
+                try:
+                    if action_type == "RETRIEVE_LEXICAL" and self.bm25_retriever:
+                        retrieved_results = self.bm25_retriever.retrieve(action_query, top_k=5)
+                    elif action_type == "RETRIEVE_DENSE" and self.dense_retriever:
+                        retrieved_results = self.dense_retriever.retrieve(action_query, top_k=5)
+                except Exception as e:
+                    logger.error("V3 Agent retrieval failed: %s", e)
                 
-                # Update Bandit
-                ctx_vec = self.query_encoder.to_context_vector(q_features)
-                self.rcp.update(ctx_vec, plan._arm_index, reward_info.get('composite_reward', 0.0))
-                logger.info("RCP updated. Reward: %.3f", reward_info.get('composite_reward', 0.0))
+                # Deduct token cost (rough estimate for querying + metadata index lookup)
+                query_tokens = len(action_query.split()) + 10
+                new_added = state.add_chunks(retrieved_results, token_cost=query_tokens)
+                
+                # Observation
+                obs = f"Retrieved {len(retrieved_results)} candidates ({new_added} new unique chunks added to memory)."
+                logger.info("Step %d Observation: %s", state.step_count + 1, obs)
+                state.add_step(reasoning, action_type, action_query, obs)
+                
+            # Compile candidates
+            all_candidates = state.retrieved_chunks
+            logger.info("ACORA v3 Loop finished. Total unique chunks collected: %d", len(all_candidates))
+            
+            # Stage 4: Reranking
+            reranked_results = all_candidates
+            if self.reranker and all_candidates:
+                try:
+                    reranked_results = self.reranker.rerank(query_text, all_candidates, top_k=config.RERANK_TOP_K)
+                    logger.info("Reranked to top-%d results.", len(reranked_results))
+                except Exception as e:
+                    logger.warning("Reranking failed: %s. Using original order.", e)
+                    
+            # Stage 5: Confidence Prediction
+            confidence = {'confident': True, 'score': 1.0}
+            if self.confidence_predictor:
+                try:
+                    confidence = self.confidence_predictor.predict_confidence(reranked_results, query_text)
+                    logger.info("Confidence: %.3f (passed=%s)", confidence.get('score', 0.0), confidence.get('confident', False))
+                except Exception as e:
+                    logger.warning("Confidence prediction failed: %s", e)
+                    
+            # Stage 6: MOSAIC Assembly
+            mosaic_result = {}
+            context = ""
+            if self.mosaic:
+                try:
+                    # Constraint enforcement gate: Pass the remaining token budget
+                    mosaic_result = self.mosaic.select_context(
+                        query=query_text,
+                        candidates=reranked_results,
+                        token_budget=state.remaining_token_budget
+                    )
+                    
+                    selected_chunks = mosaic_result.get("selected_chunks", [])
+                    context = "\n\n".join([f"[{i+1}] {c.get('chunk', {}).get('text', '')}" 
+                                          for i, c in enumerate(selected_chunks)])
+                                          
+                    logger.info("Constraint Enforcement Gate (MOSAIC): Selected %d chunks (%d tokens spent).",
+                                mosaic_result.get("num_selected", 0),
+                                mosaic_result.get("total_tokens", 0))
+                except Exception as e:
+                    logger.warning("MOSAIC assembly failed in v3: %s", e)
+                    context = "\n\n".join([c.get('chunk', {}).get('text', '') for c in reranked_results[:2]])
+            
+            # Deduct context tokens
+            context_tokens = mosaic_result.get("total_tokens", len(context)//4)
+            state.deduct_tokens(context_tokens)
+
+            # Stage 7: Generate
+            answer = "[No generator available]"
+            if self.generator:
+                try:
+                    gen_result = self.generator.generate(query=query_text, context=context)
+                    answer = gen_result.get("answer", "")
+                    # Deduct generated tokens
+                    state.deduct_tokens(gen_result.get("tokens_used", len(answer)//4))
+                except Exception as e:
+                    logger.error("LLM generation failed in v3: %s", e)
+                    answer = f"[Generation Error] {e}"
+                    
+            total_latency = (time.perf_counter() - start_time) * 1000
+            
+            # Stage 8: Reward (for benchmarking/logging)
+            reward_info = {}
+            if self.reward_computer:
+                try:
+                    temp_result = {
+                        "latency_ms": total_latency,
+                        "acoa_stats": mosaic_result,
+                        "confidence": confidence
+                    }
+                    reward_info = self.reward_computer.compute_reward(temp_result)
+                except Exception as e:
+                    logger.warning("Reward calculation failed: %s", e)
+                    
+            # Return result schema compatible with main.py runner
+            result = {
+                "answer": answer,
+                "query": query_text,
+                "plan": {
+                    "strategy": "react_coordinated_v3",
+                    "token_budget": state.initial_budget,
+                    "retrieval_depth": state.step_count,
+                    "rerank": bool(self.reranker),
+                    "mosaic_weights": [1.0/6.0] * 6
+                },
+                "retrieval_results": all_candidates,
+                "reranked_results": reranked_results,
+                "confidence": confidence,
+                "mosaic_stats": mosaic_result,
+                "reward_info": reward_info,
+                "context": context,
+                "latency_ms": round(total_latency, 2),
+                "retrieval_calls": retrieval_calls,
+                "v3_scratchpad": state.scratchpad,
+                "v3_remaining_budget": state.remaining_token_budget
+            }
+        else:
+            # ==================================================================
+            # Stage 1 & 2: Encode Query and Generate Execution Plan (v2 Flow)
+            # ==================================================================
+            q_features = {}
+            plan = None
+            
+            if self.query_encoder and self.rcp:
+                try:
+                    q_features = self.query_encoder.encode(query_text)
+                    ctx_vec = self.query_encoder.to_context_vector(q_features)
+                    plan = self.rcp.select_plan(ctx_vec)
+                    logger.info("RCP Plan: %s (depth=%d, budget=%d)", 
+                                plan.strategy, plan.retrieval_depth, plan.token_budget)
+                except Exception as e:
+                    logger.warning("RCP planning failed: %s. Using default plan.", e)
+                    
+            if not plan:
+                # Fallback default plan
+                from pipeline.execution_plan import ExecutionPlan
+                plan = ExecutionPlan.from_defaults(0)
+
+            # ==================================================================
+            # Stage 3: Retrieval Execution
+            # ==================================================================
+            retrieval_results = []
+            top_k = plan.retrieval_depth
+            
+            try:
+                if plan.strategy == "bm25" and self.bm25_retriever:
+                    retrieval_results = self.bm25_retriever.retrieve(query_text, top_k=top_k)
+                    retrieval_calls = 1
+                elif plan.strategy == "dense" and self.dense_retriever:
+                    retrieval_results = self.dense_retriever.retrieve(query_text, top_k=top_k)
+                    retrieval_calls = 1
+                elif self.hybrid_retriever:
+                    retrieval_results = self.hybrid_retriever.retrieve(query_text, top_k=top_k)
+                    retrieval_calls = 2
             except Exception as e:
-                logger.warning("Reward computation/update failed: %s", e)
+                logger.error("Retrieval execution failed: %s", e)
 
-        result = {
-            "answer": answer,
-            "query": query_text,
-            "plan": plan.to_dict(),
-            "retrieval_results": retrieval_results,
-            "reranked_results": reranked_results,
-            "confidence": confidence,
-            "mosaic_stats": mosaic_result,
-            "reward_info": reward_info,
-            "context": context,
-            "latency_ms": round(total_latency, 2),
-            "retrieval_calls": retrieval_calls,
-        }
+            logger.info("Retrieved %d candidates.", len(retrieval_results))
 
-        logger.info(
-            "Query complete  |  latency=%.0fms  retrieval_calls=%d",
-            total_latency, retrieval_calls,
-        )
+            # ==================================================================
+            # Stage 4: Conditional Reranking
+            # ==================================================================
+            reranked_results = retrieval_results
+
+            if plan.rerank and self.reranker is not None and retrieval_results:
+                try:
+                    rerank_depth = plan.rerank_depth if plan.rerank_depth > 0 else config.RERANK_TOP_K
+                    reranked_results = self.reranker.rerank(
+                        query_text,
+                        retrieval_results,
+                        top_k=rerank_depth,
+                    )
+                    logger.info("Reranked to top-%d results.", len(reranked_results))
+                except Exception as e:
+                    logger.warning("Reranking failed: %s. Using original order.", e)
+
+            # ==================================================================
+            # Stage 5: Confidence Prediction
+            # ==================================================================
+            confidence = {'confident': True, 'score': 1.0}
+            if self.confidence_predictor:
+                try:
+                    confidence = self.confidence_predictor.predict_confidence(reranked_results, query_text)
+                    logger.info("Confidence: %.3f (passed=%s)", confidence.get('score', 0.0), confidence.get('confident', False))
+                except Exception as e:
+                    logger.warning("Confidence prediction failed: %s", e)
+
+            # ==================================================================
+            # Stage 6: MOSAIC Context Assembly
+            # ==================================================================
+            mosaic_result = {}
+            context = ""
+            if self.mosaic:
+                try:
+                    mosaic_result = self.mosaic.select_context(
+                        query=query_text,
+                        candidates=reranked_results,
+                        token_budget=plan.token_budget,
+                        weights=plan.mosaic_weights
+                    )
+                    
+                    # Build context string
+                    selected_chunks = mosaic_result.get("selected_chunks", [])
+                    context = "\n\n".join([f"[{i+1}] {c.get('chunk', {}).get('text', '')}" 
+                                          for i, c in enumerate(selected_chunks)])
+                                          
+                    logger.info("MOSAIC selected %d chunks (%d tokens).",
+                                mosaic_result.get("num_selected", 0),
+                                mosaic_result.get("total_tokens", 0))
+                except Exception as e:
+                    logger.warning("MOSAIC assembly failed: %s", e)
+                    # Simple fallback
+                    context = "\n\n".join([c.get('chunk', {}).get('text', '') for c in reranked_results[:3]])
+
+            # ==================================================================
+            # Stage 7: Generate answer
+            # ==================================================================
+            answer = "[No generator available]"
+            
+            if self.generator is not None:
+                try:
+                    gen_result = self.generator.generate(query=query_text, context=context)
+                    answer = gen_result.get("answer", "")
+                except Exception as e:
+                    logger.error("LLM generation failed: %s", e)
+                    answer = f"[Generation Error] {e}"
+
+            total_latency = (time.perf_counter() - start_time) * 1000
+
+            # ==================================================================
+            # Stage 8: Reward Computation & RCP Update
+            # ==================================================================
+            reward_info = {}
+            if self.reward_computer and self.rcp and hasattr(plan, '_arm_index'):
+                try:
+                    temp_result = {
+                        "latency_ms": total_latency,
+                        "acoa_stats": mosaic_result, # map to old key for compat
+                        "confidence": confidence
+                    }
+                    reward_info = self.reward_computer.compute_reward(temp_result)
+                    
+                    # Update Bandit
+                    ctx_vec = self.query_encoder.to_context_vector(q_features)
+                    self.rcp.update(ctx_vec, plan._arm_index, reward_info.get('composite_reward', 0.0))
+                    logger.info("RCP updated. Reward: %.3f", reward_info.get('composite_reward', 0.0))
+                except Exception as e:
+                    logger.warning("Reward computation/update failed: %s", e)
+
+            result = {
+                "answer": answer,
+                "query": query_text,
+                "plan": plan.to_dict(),
+                "retrieval_results": retrieval_results,
+                "reranked_results": reranked_results,
+                "confidence": confidence,
+                "mosaic_stats": mosaic_result,
+                "reward_info": reward_info,
+                "context": context,
+                "latency_ms": round(total_latency, 2),
+                "retrieval_calls": retrieval_calls,
+            }
+
+            logger.info(
+                "Query complete  |  latency=%.0fms  retrieval_calls=%d",
+                total_latency, retrieval_calls,
+            )
 
         return result
 
@@ -553,7 +703,7 @@ class ACORAPipeline:
 
 if __name__ == "__main__":
     print("=" * 70)
-    print("  ACORA – Adaptive Context-Optimized Retrieval Architecture")
+    print("  CODA-RAG – Constraint-Oriented Dual-Agent RAG")
     print("  Demo Pipeline Run")
     print("=" * 70)
     print()
@@ -660,7 +810,7 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------
     # 2. Initialise the pipeline
     # ------------------------------------------------------------------
-    print("Step 1: Initialising ACORA pipeline...")
+    print("Step 1: Initialising CODA-RAG pipeline...")
     print("-" * 50)
 
     pipeline = ACORAPipeline()
@@ -730,6 +880,15 @@ if __name__ == "__main__":
         print(f"     Composite:      {reward.get('composite_reward', 0.0):.3f}")
 
         print(f"\n  ⏱️  Latency:        {result['latency_ms']:.0f}ms")
+
+        # Print v3 scratchpad if available
+        if 'v3_scratchpad' in result:
+            print(f"\n  📝 ReAct Coordinator Scratchpad Traces:")
+            for step in result['v3_scratchpad']:
+                print(f"     [Step {step['step']}] Reasoning: {step['reasoning']}")
+                print(f"                Action:    {step['action_type']} | Query: '{step['action_query']}'")
+                print(f"                Obs:       {step['observation']}")
+                print(f"                Status:    {step['tokens_left']} tokens remaining")
 
         print(f"\n  💬 Answer:")
         answer = result['answer']

@@ -92,6 +92,20 @@ class MOSAIC:
         if not weights or len(weights) != 6:
             weights = [1.0 / 6.0] * 6
 
+        # Budget-aware epsilon-relaxation of optimization weights (inspired by arXiv:2601.19121)
+        # Under tight token constraints (< 1000 tokens), shift weights from Exploration (diversity/redundancy)
+        # to Exploitation (relevance/coverage) to ensure critical information feasibility.
+        if token_budget < 1000:
+            logger.info("MOSAIC: Strict token constraint active (%d tokens). Shifting weights to relevance and coverage.", token_budget)
+            weights = list(weights)
+            div_weight = weights[1] + weights[2]
+            weights[1] = 0.02
+            weights[2] = 0.00
+            weights[0] += div_weight * 0.6
+            weights[5] += div_weight * 0.4
+            w_sum = sum(weights)
+            weights = [w / w_sum for w in weights]
+
         if not candidates:
             return {
                 "selected_chunks": [],

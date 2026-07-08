@@ -1,7 +1,7 @@
 """
-ACORA Configuration
-===================
-Central configuration for all ACORA components.
+CODA-RAG Configuration
+======================
+Central configuration for all CODA-RAG components.
 """
 
 import os

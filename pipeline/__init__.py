@@ -12,7 +12,8 @@ from pipeline.retriever_bm25 import BM25Retriever
 from pipeline.retriever_dense import DenseRetriever
 from pipeline.retriever_hybrid import HybridRetriever
 from pipeline.adaptive_router import AdaptiveRouter
-from pipeline.retrieval_computation_planner import RetrievalComputationPlanner
+from pipeline.retrieval_computation_planner import RetrievalComputationPlanner, ReActCoordinator
+from pipeline.state_tracker import StateTracker
 from pipeline.execution_plan import ExecutionPlan
 from pipeline.reranker import CrossEncoderReranker
 from pipeline.confidence_gate import ConfidenceGate
@@ -32,6 +33,8 @@ __all__ = [
     "HybridRetriever",
     "AdaptiveRouter",
     "RetrievalComputationPlanner",
+    "ReActCoordinator",
+    "StateTracker",
     "ExecutionPlan",
     "CrossEncoderReranker",
     "ConfidenceGate",

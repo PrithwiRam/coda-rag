@@ -63,6 +63,8 @@ class DenseRetriever:
         embedding_dim (int): Dimensionality of the embedding vectors.
     """
 
+    _model_cache = {}
+
     def __init__(
         self,
         model_name: str = config.EMBEDDING_MODEL,
@@ -82,8 +84,10 @@ class DenseRetriever:
         self.top_k = top_k
 
         # Load the embedding model
-        logger.info("Loading SentenceTransformer model: %s", self.model_name)
-        self.model = SentenceTransformer(self.model_name)
+        if self.model_name not in DenseRetriever._model_cache:
+            logger.info("Loading SentenceTransformer model: %s", self.model_name)
+            DenseRetriever._model_cache[self.model_name] = SentenceTransformer(self.model_name)
+        self.model = DenseRetriever._model_cache[self.model_name]
         self.embedding_dim: int = self.model.get_sentence_embedding_dimension()
 
         # These are populated by ``build_index`` or ``load_index``

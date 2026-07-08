@@ -187,6 +187,7 @@ class ACORAPipeline:
         self.hybrid_retriever = None
 
         # Query analysis (v2)
+        self.query_classifier = None
         self.query_encoder = None
         self.rcp = None # RetrievalComputationPlanner
         self.react_coordinator = None # ReActCoordinator (v3)
@@ -218,6 +219,14 @@ class ACORAPipeline:
 
     def _init_components(self) -> None:
         """Lazy-initialise components with potentially heavy imports."""
+        # --- Query Classifier ---
+        try:
+            from pipeline.query_classifier import QueryClassifier
+            self.query_classifier = QueryClassifier()
+        except Exception as e:
+            logger.warning("QueryClassifier unavailable: %s", e)
+            self.query_classifier = None
+
         # --- Query Encoder (v2) ---
         try:
             self.query_encoder = QueryEncoder()

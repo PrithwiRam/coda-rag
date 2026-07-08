@@ -15,3 +15,5 @@ build/
 # any other IDE folders
 data/
 scratch/
+evaluate_hotpotqa.py
+hotpotqa_results.json

@@ -662,8 +662,8 @@ def run_evaluation() -> Dict:
     documents = dataset["documents"]
     eval_queries = dataset["queries"]
 
-    # Slice queries to run a fast but representative evaluation (10 queries)
-    eval_queries = eval_queries[:10]
+    # Use the full dataset for proper evaluation
+    # eval_queries = eval_queries[:10]  # Disabled — running full evaluation
 
     print(f"   Documents: {len(documents)}")
     print(f"   Queries (Evaluating Subset): {len(eval_queries)}")
@@ -770,8 +770,8 @@ def run_evaluation() -> Dict:
         if (i + 1) % 10 == 0:
             print(f"   ... processed {i + 1}/{len(eval_queries)} queries")
 
-    all_results["ACORA"] = acora_results
-    print(f"   ✅ ACORA: {len(acora_results)} queries processed.")
+    all_results["CODA-RAG (Ours)"] = acora_results
+    print(f"   ✅ CODA-RAG (Ours): {len(acora_results)} queries processed.")
 
     # --- Run baselines ---
     for name, baseline in baselines.items():
@@ -810,7 +810,7 @@ def run_evaluation() -> Dict:
 
         for result in results:
             # Extract retrieved chunk IDs
-            if system_name == "ACORA":
+            if system_name == "CODA-RAG (Ours)":
                 reranked = result.get("reranked_results", [])
                 retrieved_ids = [
                     r.get("chunk", {}).get("chunk_id", "")

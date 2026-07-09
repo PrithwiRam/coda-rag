@@ -1,0 +1,7 @@
+system,generation.exact_match,generation.f1_score,latency_ms,retrieval.hit_rate@1,retrieval.hit_rate@10,retrieval.hit_rate@3,retrieval.hit_rate@5,retrieval.mrr,retrieval.ndcg@1,retrieval.ndcg@10,retrieval.ndcg@3,retrieval.ndcg@5,retrieval.precision@1,retrieval.precision@10,retrieval.precision@3,retrieval.precision@5,retrieval.recall@1,retrieval.recall@10,retrieval.recall@3,retrieval.recall@5
+CODA-RAG (Ours),0.02,0.2954,50739.07,0.94,0.98,0.98,0.98,0.9567,0.94,0.9639,0.9639,0.9639,0.94,0.102,0.34,0.204,0.93,0.98,0.98,0.98
+BM25-Only,0.0,0.2229,30276.92,0.9,1.0,0.94,0.96,0.9265,0.9,0.9388,0.9133,0.921,0.9,0.104,0.32,0.196,0.88,1.0,0.93,0.95
+Dense-Only,0.0,0.2133,31580.28,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.104,0.3467,0.208,0.98,1.0,1.0,1.0
+Static-Hybrid,0.0,0.2168,34865.72,0.96,1.0,1.0,1.0,0.9767,0.96,0.983,0.9777,0.983,0.96,0.104,0.34,0.208,0.95,1.0,0.99,1.0
+Standard-RAG,0.0,0.227,38414.59,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.104,0.3467,0.208,0.98,1.0,1.0,1.0
+Self-RAG,0.0,0.2454,19518.11,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.104,0.3467,0.208,0.98,1.0,1.0,1.0

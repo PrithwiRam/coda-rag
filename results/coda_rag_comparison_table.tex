@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage[table]{xcolor}
+
+\begin{document}
+
+\begin{table*}[t]
+\centering
+\small
+\caption{Cross-System Feature Comparison: CODA-RAG vs. State-of-the-Art RAG Baselines (2024--2026)}
+\label{tab:system_comparison}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Architecture} & \textbf{Adaptive?} & \textbf{Multi-Hop?} & \textbf{Graph-Based?} & \textbf{Dual-Agent?} & \textbf{Budget-Aware?} \\
+\midrule
+Adaptive-RAG (Jeong et al., 2024)  & \checkmark & $\times$    & $\times$    & $\times$    & $\times$    \\
+DRAGIN (Su et al., 2024)            & \checkmark & \checkmark  & $\times$    & $\times$    & $\times$    \\
+SEAKR (Yao et al., 2024)            & \checkmark & \checkmark  & $\times$    & $\times$    & $\times$    \\
+LightRAG (Guo et al., 2024)         & $\times$   & $\times$    & \checkmark  & $\times$    & $\times$    \\
+Plan*RAG (Verma et al., 2024)       & \checkmark & \checkmark  & $\times$    & $\times$    & \checkmark  \\
+MBA-RAG (Tang et al., 2024)         & \checkmark & $\times$    & $\times$    & $\times$    & \checkmark  \\
+BiomedKAI (Kumari et al., 2026)     & \checkmark & $\times$    & \checkmark  & \checkmark  & $\times$    \\
+PRIME (Wang et al., 2026)           & \checkmark & \checkmark  & \checkmark  & $\times$    & $\times$    \\
+\midrule
+\rowcolor[gray]{0.95} \textbf{CODA-RAG (Ours)} & \textbf{\checkmark} & \textbf{\checkmark} & \textbf{$\times$} & \textbf{\checkmark} & \textbf{\checkmark} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\end{document}

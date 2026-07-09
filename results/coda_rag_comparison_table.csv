@@ -1,0 +1,10 @@
+Architecture,Adaptive?,Multi-Hop?,Graph-Based?,Dual-Agent?,Budget-Aware?
+"Adaptive-RAG (Jeong et al., 2024)",Yes,No,No,No,No
+"DRAGIN (Su et al., 2024)",Yes,Yes,No,No,No
+"SEAKR (Yao et al., 2024)",Yes,Yes,No,No,No
+"LightRAG (Guo et al., 2024)",No,No,Yes,No,No
+"Plan*RAG (Verma et al., 2024)",Yes,Yes,No,No,Yes
+"MBA-RAG (Tang et al., 2024)",Yes,No,No,No,Yes
+"BiomedKAI (Kumari et al., 2026)",Yes,No,Yes,Yes,No
+"PRIME (Wang et al., 2026)",Yes,Yes,Yes,No,No
+CODA-RAG (Ours),Yes,Yes,No,Yes,Yes

@@ -1,0 +1,1814 @@
+{
+  "CODA-RAG (Ours)": [
+    {
+      "query": "What is India's nominal GDP in 2024?",
+      "answer": "India's nominal GDP in 2024 is estimated at approximately $3.94 trillion.",
+      "reference_answer": "India's nominal GDP in 2024 is approximately $3.94 trillion.",
+      "latency_ms": 41335.53
+    },
+    {
+      "query": "What percentage of India's GDP comes from services?",
+      "answer": "According to the context, 54% of India's GDP comes from the services sector.",
+      "reference_answer": "The services sector contributes about 54% of India's GDP.",
+      "latency_ms": 47136.44
+    },
+    {
+      "query": "When was the Apollo 11 Moon landing?",
+      "answer": "The Apollo 11 Moon landing took place on July 20, 1969. The context provides this specific date.",
+      "reference_answer": "Apollo 11 landed on the Moon on July 20, 1969.",
+      "latency_ms": 43967.38
+    },
+    {
+      "query": "How many qubits does IBM's Condor processor have?",
+      "answer": "According to the context, IBM's Condor processor has 1,121 qubits.",
+      "reference_answer": "IBM's Condor processor has 1,121 qubits.",
+      "latency_ms": 46176.89
+    },
+    {
+      "query": "Who won the Nobel Prize for CRISPR-Cas9?",
+      "answer": "The context does not mention the winner of the Nobel Prize for CRISPR-Cas9, so I cannot answer this question from the provided context.",
+      "reference_answer": "Jennifer Doudna and Emmanuelle Charpentier won the Nobel Prize in 2020 for CRISPR-Cas9.",
+      "latency_ms": 45995.68
+    },
+    {
+      "query": "When was the James Webb Space Telescope launched?",
+      "answer": "The context does not provide the date of the James Webb Space Telescope's launch, so I cannot answer this question from the provided context.",
+      "reference_answer": "The James Webb Space Telescope was launched in December 2021.",
+      "latency_ms": 47165.23
+    },
+    {
+      "query": "What is India's GDP growth rate in FY2024?",
+      "answer": "India's GDP growth rate in FY2024 was 7.2%.",
+      "reference_answer": "India's GDP growth rate was 7.2% in FY2024.",
+      "latency_ms": 50296.69
+    },
+    {
+      "query": "What are India's foreign exchange reserves in 2024?",
+      "answer": "India's foreign exchange reserves stood at approximately $620 billion in 2024.",
+      "reference_answer": "India's foreign exchange reserves stood at approximately $620 billion in 2024.",
+      "latency_ms": 50356.36
+    },
+    {
+      "query": "When did Google demonstrate quantum supremacy?",
+      "answer": "The context does not provide any information about when Google demonstrated quantum supremacy, so I cannot answer this question from the provided context.",
+      "reference_answer": "Google demonstrated quantum supremacy with Sycamore in 2019.",
+      "latency_ms": 45714.87
+    },
+    {
+      "query": "What is the current CO2 level in the atmosphere?",
+      "answer": "The current CO2 level in the atmosphere is not mentioned in the context, so I cannot answer this question from the provided context.",
+      "reference_answer": "Carbon dioxide levels reached 421 ppm in 2023.",
+      "latency_ms": 48228.08
+    },
+    {
+      "query": "How much have solar PV costs decreased since 2010?",
+      "answer": "According to the context, solar photovoltaic costs have decreased by 90% since 2010.",
+      "reference_answer": "Solar photovoltaic costs have decreased by 90% since 2010.",
+      "latency_ms": 49713.79
+    },
+    {
+      "query": "What is the cost of lithium-ion batteries in 2023?",
+      "answer": "The cost of lithium-ion batteries in 2023 is $139/kWh.",
+      "reference_answer": "Lithium-ion battery costs were $139/kWh in 2023.",
+      "latency_ms": 48108.3
+    },
+    {
+      "query": "When was the EU AI Act enacted?",
+      "answer": "The context does not specify the year in which the EU AI Act was enacted, so I cannot answer this question from the provided context.",
+      "reference_answer": "The EU AI Act was enacted in 2024.",
+      "latency_ms": 38219.78
+    },
+    {
+      "query": "When did Chandrayaan-3 land on the Moon?",
+      "answer": "The context does not provide information about when Chandrayaan-3 landed on the Moon, so I cannot answer this question from the provided context.",
+      "reference_answer": "India's Chandrayaan-3 landed near the Moon's south pole in August 2023.",
+      "latency_ms": 48414.52
+    },
+    {
+      "query": "What is the global wind energy capacity?",
+      "answer": "The global wind energy capacity reached 906 GW globally.",
+      "reference_answer": "Wind energy capacity reached 906 GW globally.",
+      "latency_ms": 45710.82
+    },
+    {
+      "query": "How much have sea levels risen since 1900?",
+      "answer": "According to the context, sea levels have risen approximately 20cm since 1900.",
+      "reference_answer": "Sea levels have risen approximately 20cm since 1900.",
+      "latency_ms": 49520.71
+    },
+    {
+      "query": "What percentage of global car sales are EVs in 2023?",
+      "answer": "The context does not provide information about the percentage of global car sales that are EVs in 2023, so I cannot answer this question from the provided context.",
+      "reference_answer": "Electric vehicles accounted for 18% of global car sales in 2023.",
+      "latency_ms": 51665.91
+    },
+    {
+      "query": "How do neural networks learn from data?",
+      "answer": "The context describes the process of neural networks learning from data, which involves forward propagation and backpropagation with gradient descent optimization.",
+      "reference_answer": "Neural networks learn through forward propagation and backpropagation with gradient descent optimization, updating weights to minimize loss.",
+      "latency_ms": 46149.93
+    },
+    {
+      "query": "Why is the attention mechanism important in NLP?",
+      "answer": "The context does not provide information about why the attention mechanism is important in NLP, so I cannot answer this question from the provided context.",
+      "reference_answer": "The attention mechanism allows models to weigh the importance of different parts of the input, revolutionizing NLP.",
+      "latency_ms": 52422.79
+    },
+    {
+      "query": "How does quantum superposition enable parallel computation?",
+      "answer": "The context does not provide information about how quantum superposition enables parallel computation, so I cannot answer this question from the provided context.",
+      "reference_answer": "Qubits can exist in superposition of 0 and 1 simultaneously, allowing quantum computers to explore multiple solutions in parallel.",
+      "latency_ms": 50117.58
+    },
+    {
+      "query": "Explain the process of backpropagation in deep learning",
+      "answer": "The context does not provide an explanation of the process of backpropagation in deep learning, so I cannot answer this question from the provided context.",
+      "reference_answer": "Backpropagation computes gradients of the loss function and uses them to update network weights via gradient descent optimization.",
+      "latency_ms": 48520.35
+    },
+    {
+      "query": "Why is CRISPR-Cas9 considered revolutionary for medicine?",
+      "answer": "The passage does not provide any information about why CRISPR-Cas9 is considered revolutionary for medicine, so I cannot answer this question from the provided context.",
+      "reference_answer": "CRISPR-Cas9 allows precise DNA modification, enabling targeted gene editing for treating genetic diseases.",
+      "latency_ms": 54720.34
+    },
+    {
+      "query": "How do mRNA vaccines work differently from traditional vaccines?",
+      "answer": "The context does not provide information about how mRNA vaccines work differently from traditional vaccines, so I cannot answer this question from the provided context.",
+      "reference_answer": "mRNA vaccines instruct cells to produce a protein that triggers immune response, and can be rapidly adapted for new pathogens.",
+      "latency_ms": 48283.65
+    },
+    {
+      "query": "What makes transformer architectures superior for language tasks?",
+      "answer": "The context does not provide any information about what makes transformer architectures superior for language tasks, so I cannot answer this question from the provided context.",
+      "reference_answer": "Transformers use attention mechanisms to process entire sequences in parallel, capturing long-range dependencies better than RNNs.",
+      "latency_ms": 59589.29
+    },
+    {
+      "query": "Why is quantum error correction a major challenge?",
+      "answer": "The context does not provide information about why quantum error correction is a major challenge, so I cannot answer this question from the provided context.",
+      "reference_answer": "Quantum decoherence causes qubits to lose their quantum state, requiring extensive error correction overhead.",
+      "latency_ms": 53450.23
+    },
+    {
+      "query": "How does algorithmic bias affect society?",
+      "answer": "The context does not provide information about how algorithmic bias affects society, so I cannot answer this question from the provided context.",
+      "reference_answer": "Algorithmic bias can perpetuate discrimination in hiring, lending, and criminal justice decisions.",
+      "latency_ms": 49513.37
+    },
+    {
+      "query": "Explain why renewable energy intermittency is a problem",
+      "answer": "The context does not provide information about why renewable energy intermittency is a problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "Solar and wind energy production varies with weather and time, requiring grid-scale storage solutions.",
+      "latency_ms": 55816.72
+    },
+    {
+      "query": "How does CAR-T cell therapy fight cancer?",
+      "answer": "The context does not provide information about how CAR-T cell therapy fights cancer, so I cannot answer this question from the provided context.",
+      "reference_answer": "CAR-T therapy engineers a patient's own immune cells to recognize and attack cancer cells.",
+      "latency_ms": 48603.93
+    },
+    {
+      "query": "Why is the alignment problem important for AI safety?",
+      "answer": "The passage does not provide any information about the importance of the alignment problem for AI safety, so I cannot answer this question from the provided context.",
+      "reference_answer": "The alignment problem asks how to ensure AI systems act in accordance with human values and intentions.",
+      "latency_ms": 47626.85
+    },
+    {
+      "query": "How does AlphaFold contribute to drug discovery?",
+      "answer": "The context does not provide any information about how AlphaFold contributes to drug discovery, so I cannot answer this question from the provided context.",
+      "reference_answer": "AlphaFold predicts protein structures with near-experimental accuracy, accelerating drug discovery.",
+      "latency_ms": 43588.16
+    },
+    {
+      "query": "What role does hydrogen play in decarbonization?",
+      "answer": "The context does not provide any information about the role of hydrogen in decarbonization, so I cannot answer this question from the provided context.",
+      "reference_answer": "Hydrogen fuel cells offer potential for heavy transport and industrial decarbonization.",
+      "latency_ms": 61477.31
+    },
+    {
+      "query": "How does the ISS contribute to scientific research?",
+      "answer": "The context does not provide any information about how the ISS contributes to scientific research, so I cannot answer this question from the provided context.",
+      "reference_answer": "The ISS has been continuously occupied since 2000, providing a platform for microgravity research.",
+      "latency_ms": 59874.41
+    },
+    {
+      "query": "Why are deepfakes a threat to information integrity?",
+      "answer": "The context does not provide information about why deepfakes are a threat to information integrity, so I cannot answer this question from the provided context.",
+      "reference_answer": "Deepfake technology can create convincing fake media, threatening trust in information.",
+      "latency_ms": 67619.31
+    },
+    {
+      "query": "Explain how precision agriculture helps with climate adaptation",
+      "answer": "The context does not provide any information about precision agriculture, so I cannot answer this question from the provided context.",
+      "reference_answer": "Precision agriculture uses technology to optimize farming practices, improving resilience to climate variability.",
+      "latency_ms": 58496.86
+    },
+    {
+      "query": "What is the significance of Shor's algorithm?",
+      "answer": "The context does not provide any information about the significance of Shor's algorithm, so I cannot answer this question from the provided context.",
+      "reference_answer": "Shor's algorithm can factor integers exponentially faster than classical algorithms, threatening RSA encryption.",
+      "latency_ms": 67512.94
+    },
+    {
+      "query": "What are the effects of climate change on agriculture?",
+      "answer": "The context mentions that climate change affects crop yields, with wheat yields declining by 6% per 1\u00b0C increase, rice by 3.2%, and maize by 7.4%.",
+      "reference_answer": "Climate change affects agriculture through rising temperatures reducing crop yields, altered precipitation patterns, and increased extreme weather events.",
+      "latency_ms": 61398.28
+    },
+    {
+      "query": "How is AI transforming healthcare?",
+      "answer": "The context does not provide information about how AI is transforming healthcare, so I cannot answer this question from the provided context.",
+      "reference_answer": "AI is used in drug discovery, protein structure prediction, and diagnostic imaging, while personalized medicine tailors treatments to individual genetics.",
+      "latency_ms": 60236.44
+    },
+    {
+      "query": "What are the challenges and opportunities in quantum computing?",
+      "answer": "The context does not provide any information about the challenges and opportunities in quantum computing, so I cannot answer this question from the provided context.",
+      "reference_answer": "Challenges include decoherence and error correction, while opportunities span drug discovery, cryptography, and materials science.",
+      "latency_ms": 59309.22
+    },
+    {
+      "query": "Discuss the future of renewable energy",
+      "answer": "The passage does not provide any information about the future of renewable energy, so I cannot answer this question from the provided context.",
+      "reference_answer": "Renewable energy is growing with falling costs, but intermittency, storage, and grid integration remain challenges.",
+      "latency_ms": 57995.79
+    },
+    {
+      "query": "What ethical concerns does AI raise?",
+      "answer": "Sure, here's the answer to the question:\n\nAccording to the context, AI raises important ethical concerns, including:\n\n* Algorithmic bias in hiring, lending, and criminal justice.\n* Deepfake technology poses threats to information integrity.\n* Privacy concerns from facial recognition surveillance and data collection practices.\n* Autonomous weapons raise questions about accountability in warfare.\n* The alignment problem asks how to ensure AI systems act in accordance with human values.",
+      "reference_answer": "AI raises concerns about bias, privacy, deepfakes, autonomous weapons, and the alignment problem.",
+      "latency_ms": 82509.6
+    },
+    {
+      "query": "How is India's economy changing?",
+      "answer": "The Indian economy is growing at 7.2% in FY2024, making it one of the fastest-growing major economies. The services sector contributes about 54% of GDP, followed by industry at 26% and agriculture at 20%.",
+      "reference_answer": "India is growing rapidly at 7.2% GDP growth, driven by services, digital payments (UPI), and manufacturing initiatives.",
+      "latency_ms": 63447.8
+    },
+    {
+      "query": "What progress has been made in space exploration recently?",
+      "answer": "Sure, here's the answer to your question:\n\nThe context provides information about the achievements in space exploration, including the successful landings of the Apollo 11 mission, the International Space Station, the Falcon 9 rocket, the James Webb Space Telescope, India's Chandrayaan-3 mission, and the ongoing search for signs of ancient microbial life on Mars.",
+      "reference_answer": "Recent milestones include JWST, Chandrayaan-3, SpaceX reusable rockets, and the Artemis program.",
+      "latency_ms": 52034.76
+    },
+    {
+      "query": "How are modern technologies fighting climate change?",
+      "answer": "The context does not provide information about how modern technologies are fighting climate change, so I cannot answer this question from the provided context.",
+      "reference_answer": "Technologies include solar and wind energy, EVs, battery storage, hydrogen fuel cells, and nuclear fusion.",
+      "latency_ms": 36683.4
+    },
+    {
+      "query": "What are the latest breakthroughs in biotechnology?",
+      "answer": "The latest breakthroughs in biotechnology are the development of CRISPR-Cas9 gene editing, mRNA vaccine technology, immunotherapy using checkpoint inhibitors, and artificial intelligence for drug discovery.",
+      "reference_answer": "Key breakthroughs include CRISPR gene editing, mRNA vaccines, CAR-T therapy, and AI-driven protein structure prediction.",
+      "latency_ms": 39828.77
+    },
+    {
+      "query": "Compare classical and quantum computing approaches",
+      "answer": "The context does not provide a comparison between classical and quantum computing approaches, so I cannot answer this question from the provided context.",
+      "reference_answer": "Classical computers use binary bits, while quantum computers use qubits in superposition, enabling parallel exploration of solutions.",
+      "latency_ms": 39601.29
+    },
+    {
+      "query": "How can we achieve sustainable food production?",
+      "answer": "The context does not provide any information about how to achieve sustainable food production, so I cannot answer this question from the provided context.",
+      "reference_answer": "Strategies include drought-resistant crops, precision agriculture, improved irrigation, and regenerative farming practices.",
+      "latency_ms": 39950.71
+    },
+    {
+      "query": "What role does deep learning play in modern AI?",
+      "answer": "The context explains that deep learning is a key architecture used in modern AI, with networks consisting of multiple hidden layers to learn hierarchical representations.",
+      "reference_answer": "Deep learning uses multi-layer neural networks to learn hierarchical data representations, powering LLMs and computer vision.",
+      "latency_ms": 42573.32
+    },
+    {
+      "query": "How should AI be regulated?",
+      "answer": "The passage does not provide information on how AI should be regulated, so I cannot answer this question from the provided context.",
+      "reference_answer": "The EU AI Act classifies AI by risk level, while explainable AI and accountability frameworks aim to ensure responsible use.",
+      "latency_ms": 39033.02
+    },
+    {
+      "query": "What is the energy storage problem and how can it be solved?",
+      "answer": "The context does not provide information about the energy storage problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "Renewable intermittency requires storage solutions including batteries, pumped hydro, compressed air, and hydrogen.",
+      "latency_ms": 42778.54
+    },
+    {
+      "query": "How is personalized medicine changing healthcare?",
+      "answer": "The context does not provide any information about how personalized medicine is changing healthcare, so I cannot answer this question from the provided context.",
+      "reference_answer": "Personalized medicine tailors treatments based on individual genetic profiles, improving efficacy and reducing side effects.",
+      "latency_ms": 48461.65
+    }
+  ],
+  "BM25-Only": [
+    {
+      "query": "",
+      "answer": "India's nominal GDP in 2024 is estimated at approximately $3.94 trillion.</end_of_turn>",
+      "reference_answer": "India's nominal GDP in 2024 is approximately $3.94 trillion.",
+      "latency_ms": 31187.93
+    },
+    {
+      "query": "",
+      "answer": "According to the context, 54% of India's GDP comes from the services sector.",
+      "reference_answer": "The services sector contributes about 54% of India's GDP.",
+      "latency_ms": 22934.69
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the date of the Apollo 11 Moon landing, so I cannot answer this question from the provided context.",
+      "reference_answer": "Apollo 11 landed on the Moon on July 20, 1969.",
+      "latency_ms": 31179.92
+    },
+    {
+      "query": "",
+      "answer": "The context does not specify the number of qubits in IBM's Condor processor, so I cannot answer this question from the provided context.",
+      "reference_answer": "IBM's Condor processor has 1,121 qubits.",
+      "latency_ms": 31006.06
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about who won the Nobel Prize for CRISPR-Cas9, so I cannot answer this question from the provided context.",
+      "reference_answer": "Jennifer Doudna and Emmanuelle Charpentier won the Nobel Prize in 2020 for CRISPR-Cas9.",
+      "latency_ms": 31254.43
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the launch date of the James Webb Space Telescope, so I cannot answer this question from the provided context.",
+      "reference_answer": "The James Webb Space Telescope was launched in December 2021.",
+      "latency_ms": 31025.31
+    },
+    {
+      "query": "",
+      "answer": "According to the context, India's nominal GDP growth rate in FY2024 was 7.2%.",
+      "reference_answer": "India's GDP growth rate was 7.2% in FY2024.",
+      "latency_ms": 30779.83
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about India's foreign exchange reserves in 2024, so I cannot answer this question from the provided context.",
+      "reference_answer": "India's foreign exchange reserves stood at approximately $620 billion in 2024.",
+      "latency_ms": 23810.96
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about when Google demonstrated quantum supremacy, so I cannot answer this question from the provided context.",
+      "reference_answer": "Google demonstrated quantum supremacy with Sycamore in 2019.",
+      "latency_ms": 30618.42
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide the current CO2 level in the atmosphere, so I cannot answer this question from the provided context.",
+      "reference_answer": "Carbon dioxide levels reached 421 ppm in 2023.",
+      "latency_ms": 30778.09
+    },
+    {
+      "query": "",
+      "answer": "According to the context, solar photovoltaic costs have decreased by 90% since 2010.",
+      "reference_answer": "Solar photovoltaic costs have decreased by 90% since 2010.",
+      "latency_ms": 30739.37
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide the cost of lithium-ion batteries in 2023, so I cannot answer this question from the provided context.",
+      "reference_answer": "Lithium-ion battery costs were $139/kWh in 2023.",
+      "latency_ms": 27601.06
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about when the EU AI Act was enacted, so I cannot answer this question from the provided context.",
+      "reference_answer": "The EU AI Act was enacted in 2024.",
+      "latency_ms": 30793.72
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about when Chandrayaan-3 landed on the Moon, so I cannot answer this question from the provided context.",
+      "reference_answer": "India's Chandrayaan-3 landed near the Moon's south pole in August 2023.",
+      "latency_ms": 31175.82
+    },
+    {
+      "query": "",
+      "answer": "The global wind energy capacity reached 906 GW globally in 2023.",
+      "reference_answer": "Wind energy capacity reached 906 GW globally.",
+      "latency_ms": 30214.84
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how much sea levels have risen since 1900, so I cannot answer this question from the provided context.",
+      "reference_answer": "Sea levels have risen approximately 20cm since 1900.",
+      "latency_ms": 31356.07
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the percentage of global car sales that are EVs in 2023, so I cannot answer this question from the provided context.",
+      "reference_answer": "Electric vehicles accounted for 18% of global car sales in 2023.",
+      "latency_ms": 31641.08
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how neural networks learn from data, so I cannot answer this question from the provided context.",
+      "reference_answer": "Neural networks learn through forward propagation and backpropagation with gradient descent optimization, updating weights to minimize loss.",
+      "latency_ms": 30652.29
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the importance of the attention mechanism in NLP, so I cannot answer this question from the provided context.",
+      "reference_answer": "The attention mechanism allows models to weigh the importance of different parts of the input, revolutionizing NLP.",
+      "latency_ms": 25592.17
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how quantum superposition enables parallel computation, so I cannot answer this question from the provided context.",
+      "reference_answer": "Qubits can exist in superposition of 0 and 1 simultaneously, allowing quantum computers to explore multiple solutions in parallel.",
+      "latency_ms": 30692.89
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the process of backpropagation in deep learning, so I cannot answer this question from the provided context.",
+      "reference_answer": "Backpropagation computes gradients of the loss function and uses them to update network weights via gradient descent optimization.",
+      "latency_ms": 30950.08
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why CRISPR-Cas9 is considered revolutionary for medicine, so I cannot answer this question from the provided context.",
+      "reference_answer": "CRISPR-Cas9 allows precise DNA modification, enabling targeted gene editing for treating genetic diseases.",
+      "latency_ms": 31138.77
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how mRNA vaccines work differently from traditional vaccines, so I cannot answer this question from the provided context.",
+      "reference_answer": "mRNA vaccines instruct cells to produce a protein that triggers immune response, and can be rapidly adapted for new pathogens.",
+      "latency_ms": 27745.87
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about what makes transformer architectures superior for language tasks, so I cannot answer this question from the provided context.",
+      "reference_answer": "Transformers use attention mechanisms to process entire sequences in parallel, capturing long-range dependencies better than RNNs.",
+      "latency_ms": 30917.11
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why quantum error correction is a major challenge, so I cannot answer this question from the provided context.",
+      "reference_answer": "Quantum decoherence causes qubits to lose their quantum state, requiring extensive error correction overhead.",
+      "latency_ms": 30979.95
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how algorithmic bias affects society, so I cannot answer this question from the provided context.",
+      "reference_answer": "Algorithmic bias can perpetuate discrimination in hiring, lending, and criminal justice decisions.",
+      "latency_ms": 30610.23
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why renewable energy intermittency is a problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "Solar and wind energy production varies with weather and time, requiring grid-scale storage solutions.",
+      "latency_ms": 29476.31
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how CAR-T cell therapy fights cancer, so I cannot answer this question from the provided context.",
+      "reference_answer": "CAR-T therapy engineers a patient's own immune cells to recognize and attack cancer cells.",
+      "latency_ms": 30714.73
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the alignment problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "The alignment problem asks how to ensure AI systems act in accordance with human values and intentions.",
+      "latency_ms": 30500.07
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how AlphaFold contributes to drug discovery, so I cannot answer this question from the provided context.",
+      "reference_answer": "AlphaFold predicts protein structures with near-experimental accuracy, accelerating drug discovery.",
+      "latency_ms": 30828.81
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the role of hydrogen in decarbonization, so I cannot answer this question from the provided context.",
+      "reference_answer": "Hydrogen fuel cells offer potential for heavy transport and industrial decarbonization.",
+      "latency_ms": 30992.94
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how the ISS contributes to scientific research, so I cannot answer this question from the provided context.",
+      "reference_answer": "The ISS has been continuously occupied since 2000, providing a platform for microgravity research.",
+      "latency_ms": 29107.19
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why deepfakes are a threat to information integrity, so I cannot answer this question from the provided context.",
+      "reference_answer": "Deepfake technology can create convincing fake media, threatening trust in information.",
+      "latency_ms": 28537.47
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about precision agriculture and its role in climate adaptation, so I cannot answer this question from the provided context.",
+      "reference_answer": "Precision agriculture uses technology to optimize farming practices, improving resilience to climate variability.",
+      "latency_ms": 28326.24
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the significance of Shor's algorithm, so I cannot answer this question from the provided context.",
+      "reference_answer": "Shor's algorithm can factor integers exponentially faster than classical algorithms, threatening RSA encryption.",
+      "latency_ms": 31127.38
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the effects of climate change on agriculture, so I cannot answer this question from the provided context.",
+      "reference_answer": "Climate change affects agriculture through rising temperatures reducing crop yields, altered precipitation patterns, and increased extreme weather events.",
+      "latency_ms": 31453.48
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how AI is transforming healthcare, so I cannot answer this question from the provided context.",
+      "reference_answer": "AI is used in drug discovery, protein structure prediction, and diagnostic imaging, while personalized medicine tailors treatments to individual genetics.",
+      "latency_ms": 31166.56
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the challenges and opportunities in quantum computing, so I cannot answer this question from the provided context.",
+      "reference_answer": "Challenges include decoherence and error correction, while opportunities span drug discovery, cryptography, and materials science.",
+      "latency_ms": 31498.72
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide any information about the future of renewable energy, so I cannot answer this question from the provided context.",
+      "reference_answer": "Renewable energy is growing with falling costs, but intermittency, storage, and grid integration remain challenges.",
+      "latency_ms": 29597.06
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the ethical concerns raised by AI, so I cannot answer this question from the provided context.",
+      "reference_answer": "AI raises concerns about bias, privacy, deepfakes, autonomous weapons, and the alignment problem.",
+      "latency_ms": 31176.7
+    },
+    {
+      "query": "",
+      "answer": "According to the context, India's nominal GDP is estimated at approximately $3.94 trillion in 2024, and the country's economy grew at 7.2% in FY2024.",
+      "reference_answer": "India is growing rapidly at 7.2% GDP growth, driven by services, digital payments (UPI), and manufacturing initiatives.",
+      "latency_ms": 33257.35
+    },
+    {
+      "query": "",
+      "answer": "Sure, here's the answer to the question:\n\nRecent advancements in space exploration include:\n\n- The successful landing of Chandrayaan-3 near the Moon's south pole.\n- The development of artificial intelligence, with the alignment problem being addressed through XAI.\n- Continued growth in renewable energy capacity, with solar and wind energy reaching significant milestones.\n- The advancement of quantum computing, with quantum supremacy demonstrated by Google's Sycamore processor.",
+      "reference_answer": "Recent milestones include JWST, Chandrayaan-3, SpaceX reusable rockets, and the Artemis program.",
+      "latency_ms": 37311.87
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how modern technologies are fighting climate change, so I cannot answer this question from the provided context.",
+      "reference_answer": "Technologies include solar and wind energy, EVs, battery storage, hydrogen fuel cells, and nuclear fusion.",
+      "latency_ms": 31398.67
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the latest breakthroughs in biotechnology, so I cannot answer this question from the provided context.",
+      "reference_answer": "Key breakthroughs include CRISPR gene editing, mRNA vaccines, CAR-T therapy, and AI-driven protein structure prediction.",
+      "latency_ms": 25609.73
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about classical and quantum computing approaches, so I cannot answer this question from the provided context.",
+      "reference_answer": "Classical computers use binary bits, while quantum computers use qubits in superposition, enabling parallel exploration of solutions.",
+      "latency_ms": 31225.14
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how to achieve sustainable food production, so I cannot answer this question from the provided context.",
+      "reference_answer": "Strategies include drought-resistant crops, precision agriculture, improved irrigation, and regenerative farming practices.",
+      "latency_ms": 31434.65
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the role of deep learning in modern AI, so I cannot answer this question from the provided context.",
+      "reference_answer": "Deep learning uses multi-layer neural networks to learn hierarchical data representations, powering LLMs and computer vision.",
+      "latency_ms": 31465.14
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how AI should be regulated, so I cannot answer this question from the provided context.",
+      "reference_answer": "The EU AI Act classifies AI by risk level, while explainable AI and accountability frameworks aim to ensure responsible use.",
+      "latency_ms": 31000.56
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the energy storage problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "Renewable intermittency requires storage solutions including batteries, pumped hydro, compressed air, and hydrogen.",
+      "latency_ms": 30224.08
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how personalized medicine is changing healthcare, so I cannot answer this question from the provided context.",
+      "reference_answer": "Personalized medicine tailors treatments based on individual genetic profiles, improving efficacy and reducing side effects.",
+      "latency_ms": 29038.4
+    }
+  ],
+  "Dense-Only": [
+    {
+      "query": "",
+      "answer": "India's nominal GDP in 2024 is estimated at approximately $3.94 trillion.</end_of_turn>",
+      "reference_answer": "India's nominal GDP in 2024 is approximately $3.94 trillion.",
+      "latency_ms": 31869.67
+    },
+    {
+      "query": "",
+      "answer": "According to the context, 54% of India's GDP comes from services.",
+      "reference_answer": "The services sector contributes about 54% of India's GDP.",
+      "latency_ms": 26830.16
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the date of the Apollo 11 Moon landing, so I cannot answer this question from the provided context.",
+      "reference_answer": "Apollo 11 landed on the Moon on July 20, 1969.",
+      "latency_ms": 31724.94
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the number of qubits in IBM's Condor processor, so I cannot answer this question from the provided context.",
+      "reference_answer": "IBM's Condor processor has 1,121 qubits.",
+      "latency_ms": 31601.95
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about who won the Nobel Prize for CRISPR-Cas9, so I cannot answer this question from the provided context.",
+      "reference_answer": "Jennifer Doudna and Emmanuelle Charpentier won the Nobel Prize in 2020 for CRISPR-Cas9.",
+      "latency_ms": 30544.08
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the launch date of the James Webb Space Telescope, so I cannot answer this question from the provided context.",
+      "reference_answer": "The James Webb Space Telescope was launched in December 2021.",
+      "latency_ms": 31711.59
+    },
+    {
+      "query": "",
+      "answer": "According to the context, India's nominal GDP growth rate in FY2024 was 7.2%.",
+      "reference_answer": "India's GDP growth rate was 7.2% in FY2024.",
+      "latency_ms": 31360.52
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about India's foreign exchange reserves in 2024, so I cannot answer this question from the provided context.",
+      "reference_answer": "India's foreign exchange reserves stood at approximately $620 billion in 2024.",
+      "latency_ms": 14854.41
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about when Google demonstrated quantum supremacy, so I cannot answer this question from the provided context.",
+      "reference_answer": "Google demonstrated quantum supremacy with Sycamore in 2019.",
+      "latency_ms": 31107.62
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide the current CO2 level in the atmosphere, so I cannot answer this question from the provided context.",
+      "reference_answer": "Carbon dioxide levels reached 421 ppm in 2023.",
+      "latency_ms": 34431.55
+    },
+    {
+      "query": "",
+      "answer": "According to the context, solar PV costs have decreased by 90% since 2010.",
+      "reference_answer": "Solar photovoltaic costs have decreased by 90% since 2010.",
+      "latency_ms": 33022.82
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide the cost of lithium-ion batteries in 2023, so I cannot answer this question from the provided context.",
+      "reference_answer": "Lithium-ion battery costs were $139/kWh in 2023.",
+      "latency_ms": 23512.25
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about when the EU AI Act was enacted, so I cannot answer this question from the provided context.",
+      "reference_answer": "The EU AI Act was enacted in 2024.",
+      "latency_ms": 32518.15
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about when Chandrayaan-3 landed on the Moon, so I cannot answer this question from the provided context.",
+      "reference_answer": "India's Chandrayaan-3 landed near the Moon's south pole in August 2023.",
+      "latency_ms": 33010.5
+    },
+    {
+      "query": "",
+      "answer": "The global wind energy capacity reached 906 GW globally in 2023.",
+      "reference_answer": "Wind energy capacity reached 906 GW globally.",
+      "latency_ms": 33875.16
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide information about how much sea levels have risen since 1900, so I cannot answer this question from the provided context.",
+      "reference_answer": "Sea levels have risen approximately 20cm since 1900.",
+      "latency_ms": 31969.07
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide information about the percentage of global car sales that are EVs in 2023, so I cannot answer this question from the provided context.",
+      "reference_answer": "Electric vehicles accounted for 18% of global car sales in 2023.",
+      "latency_ms": 32995.52
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how neural networks learn from data, so I cannot answer this question from the provided context.",
+      "reference_answer": "Neural networks learn through forward propagation and backpropagation with gradient descent optimization, updating weights to minimize loss.",
+      "latency_ms": 32538.01
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the importance of the attention mechanism in NLP, so I cannot answer this question from the provided context.",
+      "reference_answer": "The attention mechanism allows models to weigh the importance of different parts of the input, revolutionizing NLP.",
+      "latency_ms": 26937.66
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how quantum superposition enables parallel computation, so I cannot answer this question from the provided context.",
+      "reference_answer": "Qubits can exist in superposition of 0 and 1 simultaneously, allowing quantum computers to explore multiple solutions in parallel.",
+      "latency_ms": 32639.99
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the process of backpropagation in deep learning, so I cannot answer this question from the provided context.",
+      "reference_answer": "Backpropagation computes gradients of the loss function and uses them to update network weights via gradient descent optimization.",
+      "latency_ms": 30658.48
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why CRISPR-Cas9 is considered revolutionary for medicine, so I cannot answer this question from the provided context.",
+      "reference_answer": "CRISPR-Cas9 allows precise DNA modification, enabling targeted gene editing for treating genetic diseases.",
+      "latency_ms": 32914.66
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how mRNA vaccines work differently from traditional vaccines, so I cannot answer this question from the provided context.",
+      "reference_answer": "mRNA vaccines instruct cells to produce a protein that triggers immune response, and can be rapidly adapted for new pathogens.",
+      "latency_ms": 29213.44
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about what makes transformer architectures superior for language tasks, so I cannot answer this question from the provided context.",
+      "reference_answer": "Transformers use attention mechanisms to process entire sequences in parallel, capturing long-range dependencies better than RNNs.",
+      "latency_ms": 32589.42
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why quantum error correction is a major challenge, so I cannot answer this question from the provided context.",
+      "reference_answer": "Quantum decoherence causes qubits to lose their quantum state, requiring extensive error correction overhead.",
+      "latency_ms": 32542.89
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how algorithmic bias affects society, so I cannot answer this question from the provided context.",
+      "reference_answer": "Algorithmic bias can perpetuate discrimination in hiring, lending, and criminal justice decisions.",
+      "latency_ms": 28893.33
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide any information about why renewable energy intermittency is a problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "Solar and wind energy production varies with weather and time, requiring grid-scale storage solutions.",
+      "latency_ms": 32679.21
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how CAR-T cell therapy fights cancer, so I cannot answer this question from the provided context.",
+      "reference_answer": "CAR-T therapy engineers a patient's own immune cells to recognize and attack cancer cells.",
+      "latency_ms": 32582.51
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the alignment problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "The alignment problem asks how to ensure AI systems act in accordance with human values and intentions.",
+      "latency_ms": 32128.12
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how AlphaFold contributes to drug discovery, so I cannot answer this question from the provided context.",
+      "reference_answer": "AlphaFold predicts protein structures with near-experimental accuracy, accelerating drug discovery.",
+      "latency_ms": 32623.14
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the role of hydrogen in decarbonization, so I cannot answer this question from the provided context.",
+      "reference_answer": "Hydrogen fuel cells offer potential for heavy transport and industrial decarbonization.",
+      "latency_ms": 32518.7
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how the International Space Station contributes to scientific research, so I cannot answer this question from the provided context.",
+      "reference_answer": "The ISS has been continuously occupied since 2000, providing a platform for microgravity research.",
+      "latency_ms": 32599.32
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why deepfakes are a threat to information integrity, so I cannot answer this question from the provided context.",
+      "reference_answer": "Deepfake technology can create convincing fake media, threatening trust in information.",
+      "latency_ms": 32824.65
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how precision agriculture helps with climate adaptation, so I cannot answer this question from the provided context.",
+      "reference_answer": "Precision agriculture uses technology to optimize farming practices, improving resilience to climate variability.",
+      "latency_ms": 32558.37
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the significance of Shor's algorithm, so I cannot answer this question from the provided context.",
+      "reference_answer": "Shor's algorithm can factor integers exponentially faster than classical algorithms, threatening RSA encryption.",
+      "latency_ms": 32398.62
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the effects of climate change on agriculture, so I cannot answer this question from the provided context.",
+      "reference_answer": "Climate change affects agriculture through rising temperatures reducing crop yields, altered precipitation patterns, and increased extreme weather events.",
+      "latency_ms": 32447.16
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how AI is transforming healthcare, so I cannot answer this question from the provided context.",
+      "reference_answer": "AI is used in drug discovery, protein structure prediction, and diagnostic imaging, while personalized medicine tailors treatments to individual genetics.",
+      "latency_ms": 30761.41
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the challenges and opportunities in quantum computing, so I cannot answer this question from the provided context.",
+      "reference_answer": "Challenges include decoherence and error correction, while opportunities span drug discovery, cryptography, and materials science.",
+      "latency_ms": 31930.51
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide any information about the future of renewable energy, so I cannot answer this question from the provided context.",
+      "reference_answer": "Renewable energy is growing with falling costs, but intermittency, storage, and grid integration remain challenges.",
+      "latency_ms": 33075.59
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the ethical concerns raised by AI, so I cannot answer this question from the provided context.",
+      "reference_answer": "AI raises concerns about bias, privacy, deepfakes, autonomous weapons, and the alignment problem.",
+      "latency_ms": 32446.37
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how India's economy is changing, so I cannot answer this question from the provided context.",
+      "reference_answer": "India is growing rapidly at 7.2% GDP growth, driven by services, digital payments (UPI), and manufacturing initiatives.",
+      "latency_ms": 32405.76
+    },
+    {
+      "query": "",
+      "answer": "Sure, here's the answer to the question:\n\nRecent advancements in space exploration include:\n\n- Successful landing of Chandrayaan-3 on the Moon's south pole.\n- Exploration of the universe with the James Webb Space Telescope.\n- Continued development of quantum computing technology.\n- Significant progress in renewable energy capacity, with increased solar and wind power generation.\n- Advancements in artificial intelligence, including the development of transformer architectures like GPT-4.",
+      "reference_answer": "Recent milestones include JWST, Chandrayaan-3, SpaceX reusable rockets, and the Artemis program.",
+      "latency_ms": 38870.3
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how modern technologies are fighting climate change, so I cannot answer this question from the provided context.",
+      "reference_answer": "Technologies include solar and wind energy, EVs, battery storage, hydrogen fuel cells, and nuclear fusion.",
+      "latency_ms": 32567.81
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the latest breakthroughs in biotechnology, so I cannot answer this question from the provided context.",
+      "reference_answer": "Key breakthroughs include CRISPR gene editing, mRNA vaccines, CAR-T therapy, and AI-driven protein structure prediction.",
+      "latency_ms": 32348.0
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about classical and quantum computing approaches, so I cannot answer this question from the provided context.",
+      "reference_answer": "Classical computers use binary bits, while quantum computers use qubits in superposition, enabling parallel exploration of solutions.",
+      "latency_ms": 31083.03
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how to achieve sustainable food production, so I cannot answer this question from the provided context.",
+      "reference_answer": "Strategies include drought-resistant crops, precision agriculture, improved irrigation, and regenerative farming practices.",
+      "latency_ms": 32098.63
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the role of deep learning in modern AI, so I cannot answer this question from the provided context.",
+      "reference_answer": "Deep learning uses multi-layer neural networks to learn hierarchical data representations, powering LLMs and computer vision.",
+      "latency_ms": 32616.55
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how AI should be regulated, so I cannot answer this question from the provided context.",
+      "reference_answer": "The EU AI Act classifies AI by risk level, while explainable AI and accountability frameworks aim to ensure responsible use.",
+      "latency_ms": 32455.15
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the energy storage problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "Renewable intermittency requires storage solutions including batteries, pumped hydro, compressed air, and hydrogen.",
+      "latency_ms": 32502.5
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how personalized medicine is changing healthcare, so I cannot answer this question from the provided context.",
+      "reference_answer": "Personalized medicine tailors treatments based on individual genetic profiles, improving efficacy and reducing side effects.",
+      "latency_ms": 32624.82
+    }
+  ],
+  "Static-Hybrid": [
+    {
+      "query": "",
+      "answer": "India's nominal GDP in 2024 is estimated at approximately $3.94 trillion.</start_of_turn>",
+      "reference_answer": "India's nominal GDP in 2024 is approximately $3.94 trillion.",
+      "latency_ms": 33222.33
+    },
+    {
+      "query": "",
+      "answer": "According to the context, 54% of India's GDP comes from the services sector.",
+      "reference_answer": "The services sector contributes about 54% of India's GDP.",
+      "latency_ms": 23984.47
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the date of the Apollo 11 Moon landing, so I cannot answer this question from the provided context.",
+      "reference_answer": "Apollo 11 landed on the Moon on July 20, 1969.",
+      "latency_ms": 33171.07
+    },
+    {
+      "query": "",
+      "answer": "The context does not specify the number of qubits in IBM's Condor processor, so I cannot answer this question from the provided context.",
+      "reference_answer": "IBM's Condor processor has 1,121 qubits.",
+      "latency_ms": 32966.46
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about who won the Nobel Prize for CRISPR-Cas9, so I cannot answer this question from the provided context.",
+      "reference_answer": "Jennifer Doudna and Emmanuelle Charpentier won the Nobel Prize in 2020 for CRISPR-Cas9.",
+      "latency_ms": 33163.87
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the launch date of the James Webb Space Telescope, so I cannot answer this question from the provided context.",
+      "reference_answer": "The James Webb Space Telescope was launched in December 2021.",
+      "latency_ms": 32979.0
+    },
+    {
+      "query": "",
+      "answer": "According to the context, India's nominal GDP growth rate in FY2024 was 7.2%.",
+      "reference_answer": "India's GDP growth rate was 7.2% in FY2024.",
+      "latency_ms": 32998.65
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about India's foreign exchange reserves in 2024, so I cannot answer this question from the provided context.",
+      "reference_answer": "India's foreign exchange reserves stood at approximately $620 billion in 2024.",
+      "latency_ms": 27987.84
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about when Google demonstrated quantum supremacy, so I cannot answer this question from the provided context.",
+      "reference_answer": "Google demonstrated quantum supremacy with Sycamore in 2019.",
+      "latency_ms": 32943.89
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide the current CO2 level in the atmosphere, so I cannot answer this question from the provided context.",
+      "reference_answer": "Carbon dioxide levels reached 421 ppm in 2023.",
+      "latency_ms": 32848.35
+    },
+    {
+      "query": "",
+      "answer": "According to the context, solar PV costs have decreased by 90% since 2010.",
+      "reference_answer": "Solar photovoltaic costs have decreased by 90% since 2010.",
+      "latency_ms": 32608.42
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide the cost of lithium-ion batteries in 2023, so I cannot answer this question from the provided context.",
+      "reference_answer": "Lithium-ion battery costs were $139/kWh in 2023.",
+      "latency_ms": 23164.06
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about when the EU AI Act was enacted, so I cannot answer this question from the provided context.",
+      "reference_answer": "The EU AI Act was enacted in 2024.",
+      "latency_ms": 32715.69
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about when Chandrayaan-3 landed on the Moon, so I cannot answer this question from the provided context.",
+      "reference_answer": "India's Chandrayaan-3 landed near the Moon's south pole in August 2023.",
+      "latency_ms": 32952.86
+    },
+    {
+      "query": "",
+      "answer": "The global wind energy capacity reached 906 GW globally in 2023.",
+      "reference_answer": "Wind energy capacity reached 906 GW globally.",
+      "latency_ms": 31983.1
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how much sea levels have risen since 1900, so I cannot answer this question from the provided context.",
+      "reference_answer": "Sea levels have risen approximately 20cm since 1900.",
+      "latency_ms": 33677.15
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide information about the percentage of global car sales that are EVs in 2023, so I cannot answer this question from the provided context.",
+      "reference_answer": "Electric vehicles accounted for 18% of global car sales in 2023.",
+      "latency_ms": 35373.86
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how neural networks learn from data, so I cannot answer this question from the provided context.",
+      "reference_answer": "Neural networks learn through forward propagation and backpropagation with gradient descent optimization, updating weights to minimize loss.",
+      "latency_ms": 33404.55
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the importance of the attention mechanism in NLP, so I cannot answer this question from the provided context.",
+      "reference_answer": "The attention mechanism allows models to weigh the importance of different parts of the input, revolutionizing NLP.",
+      "latency_ms": 27470.46
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how quantum superposition enables parallel computation, so I cannot answer this question from the provided context.",
+      "reference_answer": "Qubits can exist in superposition of 0 and 1 simultaneously, allowing quantum computers to explore multiple solutions in parallel.",
+      "latency_ms": 34049.52
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the process of backpropagation in deep learning, so I cannot answer this question from the provided context.",
+      "reference_answer": "Backpropagation computes gradients of the loss function and uses them to update network weights via gradient descent optimization.",
+      "latency_ms": 29617.84
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why CRISPR-Cas9 is considered revolutionary for medicine, so I cannot answer this question from the provided context.",
+      "reference_answer": "CRISPR-Cas9 allows precise DNA modification, enabling targeted gene editing for treating genetic diseases.",
+      "latency_ms": 33318.04
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how mRNA vaccines work differently from traditional vaccines, so I cannot answer this question from the provided context.",
+      "reference_answer": "mRNA vaccines instruct cells to produce a protein that triggers immune response, and can be rapidly adapted for new pathogens.",
+      "latency_ms": 21107.6
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about what makes transformer architectures superior for language tasks, so I cannot answer this question from the provided context.",
+      "reference_answer": "Transformers use attention mechanisms to process entire sequences in parallel, capturing long-range dependencies better than RNNs.",
+      "latency_ms": 32695.21
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why quantum error correction is a major challenge, so I cannot answer this question from the provided context.",
+      "reference_answer": "Quantum decoherence causes qubits to lose their quantum state, requiring extensive error correction overhead.",
+      "latency_ms": 29696.72
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how algorithmic bias affects society, so I cannot answer this question from the provided context.",
+      "reference_answer": "Algorithmic bias can perpetuate discrimination in hiring, lending, and criminal justice decisions.",
+      "latency_ms": 32386.25
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide any information about why renewable energy intermittency is a problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "Solar and wind energy production varies with weather and time, requiring grid-scale storage solutions.",
+      "latency_ms": 33176.43
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how CAR-T cell therapy fights cancer, so I cannot answer this question from the provided context.",
+      "reference_answer": "CAR-T therapy engineers a patient's own immune cells to recognize and attack cancer cells.",
+      "latency_ms": 32640.76
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why the alignment problem is important for AI safety, so I cannot answer this question from the provided context.",
+      "reference_answer": "The alignment problem asks how to ensure AI systems act in accordance with human values and intentions.",
+      "latency_ms": 33242.45
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how AlphaFold contributes to drug discovery, so I cannot answer this question from the provided context.",
+      "reference_answer": "AlphaFold predicts protein structures with near-experimental accuracy, accelerating drug discovery.",
+      "latency_ms": 39234.1
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the role of hydrogen in decarbonization, so I cannot answer this question from the provided context.",
+      "reference_answer": "Hydrogen fuel cells offer potential for heavy transport and industrial decarbonization.",
+      "latency_ms": 39431.97
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how the ISS contributes to scientific research, so I cannot answer this question from the provided context.",
+      "reference_answer": "The ISS has been continuously occupied since 2000, providing a platform for microgravity research.",
+      "latency_ms": 39308.28
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why deepfakes are a threat to information integrity, so I cannot answer this question from the provided context.",
+      "reference_answer": "Deepfake technology can create convincing fake media, threatening trust in information.",
+      "latency_ms": 39992.14
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how precision agriculture helps with climate adaptation, so I cannot answer this question from the provided context.",
+      "reference_answer": "Precision agriculture uses technology to optimize farming practices, improving resilience to climate variability.",
+      "latency_ms": 39414.49
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the significance of Shor's algorithm, so I cannot answer this question from the provided context.",
+      "reference_answer": "Shor's algorithm can factor integers exponentially faster than classical algorithms, threatening RSA encryption.",
+      "latency_ms": 39702.1
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the effects of climate change on agriculture, so I cannot answer this question from the provided context.",
+      "reference_answer": "Climate change affects agriculture through rising temperatures reducing crop yields, altered precipitation patterns, and increased extreme weather events.",
+      "latency_ms": 39596.64
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how AI is transforming healthcare, so I cannot answer this question from the provided context.",
+      "reference_answer": "AI is used in drug discovery, protein structure prediction, and diagnostic imaging, while personalized medicine tailors treatments to individual genetics.",
+      "latency_ms": 39231.74
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the challenges and opportunities in quantum computing, so I cannot answer this question from the provided context.",
+      "reference_answer": "Challenges include decoherence and error correction, while opportunities span drug discovery, cryptography, and materials science.",
+      "latency_ms": 39537.88
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide any information about the future of renewable energy, so I cannot answer this question from the provided context.",
+      "reference_answer": "Renewable energy is growing with falling costs, but intermittency, storage, and grid integration remain challenges.",
+      "latency_ms": 39194.5
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the ethical concerns raised by AI, so I cannot answer this question from the provided context.",
+      "reference_answer": "AI raises concerns about bias, privacy, deepfakes, autonomous weapons, and the alignment problem.",
+      "latency_ms": 39188.79
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide information about how India's economy is changing, so I cannot answer this question from the provided context.",
+      "reference_answer": "India is growing rapidly at 7.2% GDP growth, driven by services, digital payments (UPI), and manufacturing initiatives.",
+      "latency_ms": 39284.97
+    },
+    {
+      "query": "",
+      "answer": "Sure, here's the answer to the question:\n\nRecent advancements in space exploration include:\n\n- Successful landing of Chandrayaan-3 on the Moon's south pole.\n- Exploration of the universe with the James Webb Space Telescope.\n- Continued development of artificial intelligence, with the emergence of large language models like GPT-4.\n- Breakthroughs in quantum computing, with IBM's Condor processor achieving quantum supremacy.",
+      "reference_answer": "Recent milestones include JWST, Chandrayaan-3, SpaceX reusable rockets, and the Artemis program.",
+      "latency_ms": 46510.47
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how modern technologies are fighting climate change, so I cannot answer this question from the provided context.",
+      "reference_answer": "Technologies include solar and wind energy, EVs, battery storage, hydrogen fuel cells, and nuclear fusion.",
+      "latency_ms": 40209.78
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the latest breakthroughs in biotechnology, so I cannot answer this question from the provided context.",
+      "reference_answer": "Key breakthroughs include CRISPR gene editing, mRNA vaccines, CAR-T therapy, and AI-driven protein structure prediction.",
+      "latency_ms": 35044.98
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the comparison between classical and quantum computing approaches, so I cannot answer this question from the provided context.",
+      "reference_answer": "Classical computers use binary bits, while quantum computers use qubits in superposition, enabling parallel exploration of solutions.",
+      "latency_ms": 39549.64
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how to achieve sustainable food production, so I cannot answer this question from the provided context.",
+      "reference_answer": "Strategies include drought-resistant crops, precision agriculture, improved irrigation, and regenerative farming practices.",
+      "latency_ms": 40100.09
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the role of deep learning in modern AI, so I cannot answer this question from the provided context.",
+      "reference_answer": "Deep learning uses multi-layer neural networks to learn hierarchical data representations, powering LLMs and computer vision.",
+      "latency_ms": 39522.94
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how AI should be regulated, so I cannot answer this question from the provided context.",
+      "reference_answer": "The EU AI Act classifies AI by risk level, while explainable AI and accountability frameworks aim to ensure responsible use.",
+      "latency_ms": 39046.59
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the energy storage problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "Renewable intermittency requires storage solutions including batteries, pumped hydro, compressed air, and hydrogen.",
+      "latency_ms": 39206.67
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how personalized medicine is changing healthcare, so I cannot answer this question from the provided context.",
+      "reference_answer": "Personalized medicine tailors treatments based on individual genetic profiles, improving efficacy and reducing side effects.",
+      "latency_ms": 39430.19
+    }
+  ],
+  "Standard-RAG": [
+    {
+      "query": "",
+      "answer": "India's nominal GDP in 2024 is estimated at approximately $3.94 trillion.",
+      "reference_answer": "India's nominal GDP in 2024 is approximately $3.94 trillion.",
+      "latency_ms": 38900.99
+    },
+    {
+      "query": "",
+      "answer": "According to the context, 54% of India's GDP comes from the services sector.",
+      "reference_answer": "The services sector contributes about 54% of India's GDP.",
+      "latency_ms": 34484.35
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the date of the Apollo 11 Moon landing, so I cannot answer this question from the provided context.",
+      "reference_answer": "Apollo 11 landed on the Moon on July 20, 1969.",
+      "latency_ms": 39523.1
+    },
+    {
+      "query": "",
+      "answer": "The context does not specify the number of qubits in IBM's Condor processor, so I cannot answer this question from the provided context.",
+      "reference_answer": "IBM's Condor processor has 1,121 qubits.",
+      "latency_ms": 37369.93
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about who won the Nobel Prize for CRISPR-Cas9, so I cannot answer this question from the provided context.",
+      "reference_answer": "Jennifer Doudna and Emmanuelle Charpentier won the Nobel Prize in 2020 for CRISPR-Cas9.",
+      "latency_ms": 37351.48
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the launch date of the James Webb Space Telescope, so I cannot answer this question from the provided context.",
+      "reference_answer": "The James Webb Space Telescope was launched in December 2021.",
+      "latency_ms": 39711.06
+    },
+    {
+      "query": "",
+      "answer": "According to the context, India's nominal GDP growth rate in FY2024 was 7.2%.",
+      "reference_answer": "India's GDP growth rate was 7.2% in FY2024.",
+      "latency_ms": 38938.75
+    },
+    {
+      "query": "",
+      "answer": "India's foreign exchange reserves stood at approximately $620 billion in 2024.</start_of_turn>",
+      "reference_answer": "India's foreign exchange reserves stood at approximately $620 billion in 2024.",
+      "latency_ms": 20264.72
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about when Google demonstrated quantum supremacy, so I cannot answer this question from the provided context.",
+      "reference_answer": "Google demonstrated quantum supremacy with Sycamore in 2019.",
+      "latency_ms": 38935.31
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide the current CO2 level in the atmosphere, so I cannot answer this question from the provided context.",
+      "reference_answer": "Carbon dioxide levels reached 421 ppm in 2023.",
+      "latency_ms": 39721.53
+    },
+    {
+      "query": "",
+      "answer": "According to the context, solar PV costs have decreased by 90% since 2010.",
+      "reference_answer": "Solar photovoltaic costs have decreased by 90% since 2010.",
+      "latency_ms": 38882.97
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide the cost of lithium-ion batteries in 2023, so I cannot answer this question from the provided context.",
+      "reference_answer": "Lithium-ion battery costs were $139/kWh in 2023.",
+      "latency_ms": 29942.3
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about when the EU AI Act was enacted, so I cannot answer this question from the provided context.",
+      "reference_answer": "The EU AI Act was enacted in 2024.",
+      "latency_ms": 38874.14
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about when Chandrayaan-3 landed on the Moon, so I cannot answer this question from the provided context.",
+      "reference_answer": "India's Chandrayaan-3 landed near the Moon's south pole in August 2023.",
+      "latency_ms": 39423.16
+    },
+    {
+      "query": "",
+      "answer": "The global wind energy capacity reached 906 GW globally in 2023.",
+      "reference_answer": "Wind energy capacity reached 906 GW globally.",
+      "latency_ms": 38271.43
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide information about how much sea levels have risen since 1900, so I cannot answer this question from the provided context.",
+      "reference_answer": "Sea levels have risen approximately 20cm since 1900.",
+      "latency_ms": 39866.48
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide information about the percentage of global car sales that are EVs in 2023, so I cannot answer this question from the provided context.",
+      "reference_answer": "Electric vehicles accounted for 18% of global car sales in 2023.",
+      "latency_ms": 40149.0
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how neural networks learn from data, so I cannot answer this question from the provided context.",
+      "reference_answer": "Neural networks learn through forward propagation and backpropagation with gradient descent optimization, updating weights to minimize loss.",
+      "latency_ms": 38910.52
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the importance of the attention mechanism in NLP, so I cannot answer this question from the provided context.",
+      "reference_answer": "The attention mechanism allows models to weigh the importance of different parts of the input, revolutionizing NLP.",
+      "latency_ms": 32538.46
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how quantum superposition enables parallel computation, so I cannot answer this question from the provided context.",
+      "reference_answer": "Qubits can exist in superposition of 0 and 1 simultaneously, allowing quantum computers to explore multiple solutions in parallel.",
+      "latency_ms": 38813.67
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the process of backpropagation in deep learning, so I cannot answer this question from the provided context.",
+      "reference_answer": "Backpropagation computes gradients of the loss function and uses them to update network weights via gradient descent optimization.",
+      "latency_ms": 39282.03
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why CRISPR-Cas9 is considered revolutionary for medicine, so I cannot answer this question from the provided context.",
+      "reference_answer": "CRISPR-Cas9 allows precise DNA modification, enabling targeted gene editing for treating genetic diseases.",
+      "latency_ms": 39461.95
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how mRNA vaccines work differently from traditional vaccines, so I cannot answer this question from the provided context.",
+      "reference_answer": "mRNA vaccines instruct cells to produce a protein that triggers immune response, and can be rapidly adapted for new pathogens.",
+      "latency_ms": 35088.09
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about what makes transformer architectures superior for language tasks, so I cannot answer this question from the provided context.",
+      "reference_answer": "Transformers use attention mechanisms to process entire sequences in parallel, capturing long-range dependencies better than RNNs.",
+      "latency_ms": 39332.53
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why quantum error correction is a major challenge, so I cannot answer this question from the provided context.",
+      "reference_answer": "Quantum decoherence causes qubits to lose their quantum state, requiring extensive error correction overhead.",
+      "latency_ms": 39170.27
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how algorithmic bias affects society, so I cannot answer this question from the provided context.",
+      "reference_answer": "Algorithmic bias can perpetuate discrimination in hiring, lending, and criminal justice decisions.",
+      "latency_ms": 38852.31
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why renewable energy intermittency is a problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "Solar and wind energy production varies with weather and time, requiring grid-scale storage solutions.",
+      "latency_ms": 39273.76
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how CAR-T cell therapy fights cancer, so I cannot answer this question from the provided context.",
+      "reference_answer": "CAR-T therapy engineers a patient's own immune cells to recognize and attack cancer cells.",
+      "latency_ms": 39275.94
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the alignment problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "The alignment problem asks how to ensure AI systems act in accordance with human values and intentions.",
+      "latency_ms": 38655.01
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how AlphaFold contributes to drug discovery, so I cannot answer this question from the provided context.",
+      "reference_answer": "AlphaFold predicts protein structures with near-experimental accuracy, accelerating drug discovery.",
+      "latency_ms": 39162.47
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the role of hydrogen in decarbonization, so I cannot answer this question from the provided context.",
+      "reference_answer": "Hydrogen fuel cells offer potential for heavy transport and industrial decarbonization.",
+      "latency_ms": 39095.49
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how the International Space Station contributes to scientific research, so I cannot answer this question from the provided context.",
+      "reference_answer": "The ISS has been continuously occupied since 2000, providing a platform for microgravity research.",
+      "latency_ms": 39800.58
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why deepfakes are a threat to information integrity, so I cannot answer this question from the provided context.",
+      "reference_answer": "Deepfake technology can create convincing fake media, threatening trust in information.",
+      "latency_ms": 39410.25
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how precision agriculture helps with climate adaptation, so I cannot answer this question from the provided context.",
+      "reference_answer": "Precision agriculture uses technology to optimize farming practices, improving resilience to climate variability.",
+      "latency_ms": 38945.35
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the significance of Shor's algorithm, so I cannot answer this question from the provided context.",
+      "reference_answer": "Shor's algorithm can factor integers exponentially faster than classical algorithms, threatening RSA encryption.",
+      "latency_ms": 37094.25
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the effects of climate change on agriculture, so I cannot answer this question from the provided context.",
+      "reference_answer": "Climate change affects agriculture through rising temperatures reducing crop yields, altered precipitation patterns, and increased extreme weather events.",
+      "latency_ms": 39019.46
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how AI is transforming healthcare, so I cannot answer this question from the provided context.",
+      "reference_answer": "AI is used in drug discovery, protein structure prediction, and diagnostic imaging, while personalized medicine tailors treatments to individual genetics.",
+      "latency_ms": 38806.76
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the challenges and opportunities in quantum computing, so I cannot answer this question from the provided context.",
+      "reference_answer": "Challenges include decoherence and error correction, while opportunities span drug discovery, cryptography, and materials science.",
+      "latency_ms": 39170.52
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide any information about the future of renewable energy, so I cannot answer this question from the provided context.",
+      "reference_answer": "Renewable energy is growing with falling costs, but intermittency, storage, and grid integration remain challenges.",
+      "latency_ms": 38958.01
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the ethical concerns raised by AI, so I cannot answer this question from the provided context.",
+      "reference_answer": "AI raises concerns about bias, privacy, deepfakes, autonomous weapons, and the alignment problem.",
+      "latency_ms": 39039.67
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how India's economy is changing, so I cannot answer this question from the provided context.",
+      "reference_answer": "India is growing rapidly at 7.2% GDP growth, driven by services, digital payments (UPI), and manufacturing initiatives.",
+      "latency_ms": 38944.25
+    },
+    {
+      "query": "",
+      "answer": "Sure, here's the answer to the question:\n\nSpace exploration has achieved remarkable milestones in recent years, including:\n\n- The successful landing of humans on the Moon by NASA's Apollo 11 in 1969.\n- The continuous operation of the International Space Station since 2000.\n- The development of the James Webb Space Telescope, which has revolutionized our understanding of the universe.\n- India's Chandrayaan-3 mission, which successfully landed near the Moon's south pole in August 2023.\n- The ongoing search for signs of ancient microbial life on Mars.",
+      "reference_answer": "Recent milestones include JWST, Chandrayaan-3, SpaceX reusable rockets, and the Artemis program.",
+      "latency_ms": 50629.43
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how modern technologies are fighting climate change, so I cannot answer this question from the provided context.",
+      "reference_answer": "Technologies include solar and wind energy, EVs, battery storage, hydrogen fuel cells, and nuclear fusion.",
+      "latency_ms": 39297.9
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the latest breakthroughs in biotechnology, so I cannot answer this question from the provided context.",
+      "reference_answer": "Key breakthroughs include CRISPR gene editing, mRNA vaccines, CAR-T therapy, and AI-driven protein structure prediction.",
+      "latency_ms": 39307.52
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about classical and quantum computing approaches, so I cannot answer this question from the provided context.",
+      "reference_answer": "Classical computers use binary bits, while quantum computers use qubits in superposition, enabling parallel exploration of solutions.",
+      "latency_ms": 39065.71
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how to achieve sustainable food production, so I cannot answer this question from the provided context.",
+      "reference_answer": "Strategies include drought-resistant crops, precision agriculture, improved irrigation, and regenerative farming practices.",
+      "latency_ms": 39016.06
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the role of deep learning in modern AI, so I cannot answer this question from the provided context.",
+      "reference_answer": "Deep learning uses multi-layer neural networks to learn hierarchical data representations, powering LLMs and computer vision.",
+      "latency_ms": 40091.97
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how AI should be regulated, so I cannot answer this question from the provided context.",
+      "reference_answer": "The EU AI Act classifies AI by risk level, while explainable AI and accountability frameworks aim to ensure responsible use.",
+      "latency_ms": 38773.64
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the energy storage problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "Renewable intermittency requires storage solutions including batteries, pumped hydro, compressed air, and hydrogen.",
+      "latency_ms": 38929.35
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how personalized medicine is changing healthcare, so I cannot answer this question from the provided context.",
+      "reference_answer": "Personalized medicine tailors treatments based on individual genetic profiles, improving efficacy and reducing side effects.",
+      "latency_ms": 38905.71
+    }
+  ],
+  "Self-RAG": [
+    {
+      "query": "",
+      "answer": "India's nominal GDP in 2024 is estimated at approximately $3.94 trillion.",
+      "reference_answer": "India's nominal GDP in 2024 is approximately $3.94 trillion.",
+      "latency_ms": 26327.97
+    },
+    {
+      "query": "",
+      "answer": "According to the context, 54% of India's GDP comes from the services sector.",
+      "reference_answer": "The services sector contributes about 54% of India's GDP.",
+      "latency_ms": 15362.34
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the date of the Apollo 11 Moon landing, so I cannot answer this question from the provided context.",
+      "reference_answer": "Apollo 11 landed on the Moon on July 20, 1969.",
+      "latency_ms": 23365.38
+    },
+    {
+      "query": "",
+      "answer": "According to the context, IBM's Condor processor has 1,121 qubits.",
+      "reference_answer": "IBM's Condor processor has 1,121 qubits.",
+      "latency_ms": 6407.39
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about who won the Nobel Prize for CRISPR-Cas9, so I cannot answer this question from the provided context.",
+      "reference_answer": "Jennifer Doudna and Emmanuelle Charpentier won the Nobel Prize in 2020 for CRISPR-Cas9.",
+      "latency_ms": 23272.09
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the launch date of the James Webb Space Telescope, so I cannot answer this question from the provided context.",
+      "reference_answer": "The James Webb Space Telescope was launched in December 2021.",
+      "latency_ms": 23708.96
+    },
+    {
+      "query": "",
+      "answer": "According to the context, India's nominal GDP growth rate in FY2024 was 7.2%.",
+      "reference_answer": "India's GDP growth rate was 7.2% in FY2024.",
+      "latency_ms": 26789.63
+    },
+    {
+      "query": "",
+      "answer": "India's foreign exchange reserves stood at approximately $620 billion in 2024.</start_of_turn>",
+      "reference_answer": "India's foreign exchange reserves stood at approximately $620 billion in 2024.",
+      "latency_ms": 7694.94
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about when Google demonstrated quantum supremacy, so I cannot answer this question from the provided context.",
+      "reference_answer": "Google demonstrated quantum supremacy with Sycamore in 2019.",
+      "latency_ms": 6979.21
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide the current CO2 level in the atmosphere, so I cannot answer this question from the provided context.",
+      "reference_answer": "Carbon dioxide levels reached 421 ppm in 2023.",
+      "latency_ms": 27763.3
+    },
+    {
+      "query": "",
+      "answer": "According to the context, solar photovoltaic costs have decreased by 90% since 2010.",
+      "reference_answer": "Solar photovoltaic costs have decreased by 90% since 2010.",
+      "latency_ms": 17654.63
+    },
+    {
+      "query": "",
+      "answer": "The cost of lithium-ion batteries in 2023 is not explicitly mentioned in the context, so I cannot answer this question from the provided context.",
+      "reference_answer": "Lithium-ion battery costs were $139/kWh in 2023.",
+      "latency_ms": 18067.39
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about when the EU AI Act was enacted, so I cannot answer this question from the provided context.",
+      "reference_answer": "The EU AI Act was enacted in 2024.",
+      "latency_ms": 18291.66
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about when Chandrayaan-3 landed on the Moon, so I cannot answer this question from the provided context.",
+      "reference_answer": "India's Chandrayaan-3 landed near the Moon's south pole in August 2023.",
+      "latency_ms": 20326.31
+    },
+    {
+      "query": "",
+      "answer": "The global wind energy capacity reached 906 GW globally in 2023.",
+      "reference_answer": "Wind energy capacity reached 906 GW globally.",
+      "latency_ms": 24855.1
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how much sea levels have risen since 1900, so I cannot answer this question from the provided context.",
+      "reference_answer": "Sea levels have risen approximately 20cm since 1900.",
+      "latency_ms": 22114.73
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the percentage of global car sales that are EVs in 2023, so I cannot answer this question from the provided context.",
+      "reference_answer": "Electric vehicles accounted for 18% of global car sales in 2023.",
+      "latency_ms": 26817.1
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how neural networks learn from data, so I cannot answer this question from the provided context.",
+      "reference_answer": "Neural networks learn through forward propagation and backpropagation with gradient descent optimization, updating weights to minimize loss.",
+      "latency_ms": 9990.86
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the importance of the attention mechanism in NLP, so I cannot answer this question from the provided context.",
+      "reference_answer": "The attention mechanism allows models to weigh the importance of different parts of the input, revolutionizing NLP.",
+      "latency_ms": 16750.35
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how quantum superposition enables parallel computation, so I cannot answer this question from the provided context.",
+      "reference_answer": "Qubits can exist in superposition of 0 and 1 simultaneously, allowing quantum computers to explore multiple solutions in parallel.",
+      "latency_ms": 10186.71
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the process of backpropagation in deep learning, so I cannot answer this question from the provided context.",
+      "reference_answer": "Backpropagation computes gradients of the loss function and uses them to update network weights via gradient descent optimization.",
+      "latency_ms": 23384.37
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why CRISPR-Cas9 is considered revolutionary for medicine, so I cannot answer this question from the provided context.",
+      "reference_answer": "CRISPR-Cas9 allows precise DNA modification, enabling targeted gene editing for treating genetic diseases.",
+      "latency_ms": 23088.05
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how mRNA vaccines work differently from traditional vaccines, so I cannot answer this question from the provided context.",
+      "reference_answer": "mRNA vaccines instruct cells to produce a protein that triggers immune response, and can be rapidly adapted for new pathogens.",
+      "latency_ms": 10429.2
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about what makes transformer architectures superior for language tasks, so I cannot answer this question from the provided context.",
+      "reference_answer": "Transformers use attention mechanisms to process entire sequences in parallel, capturing long-range dependencies better than RNNs.",
+      "latency_ms": 23552.59
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why quantum error correction is a major challenge, so I cannot answer this question from the provided context.",
+      "reference_answer": "Quantum decoherence causes qubits to lose their quantum state, requiring extensive error correction overhead.",
+      "latency_ms": 16223.71
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how algorithmic bias affects society, so I cannot answer this question from the provided context.",
+      "reference_answer": "Algorithmic bias can perpetuate discrimination in hiring, lending, and criminal justice decisions.",
+      "latency_ms": 11465.16
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why renewable energy intermittency is a problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "Solar and wind energy production varies with weather and time, requiring grid-scale storage solutions.",
+      "latency_ms": 20902.37
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how CAR-T cell therapy fights cancer, so I cannot answer this question from the provided context.",
+      "reference_answer": "CAR-T therapy engineers a patient's own immune cells to recognize and attack cancer cells.",
+      "latency_ms": 7919.4
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the alignment problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "The alignment problem asks how to ensure AI systems act in accordance with human values and intentions.",
+      "latency_ms": 22437.84
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how AlphaFold contributes to drug discovery, so I cannot answer this question from the provided context.",
+      "reference_answer": "AlphaFold predicts protein structures with near-experimental accuracy, accelerating drug discovery.",
+      "latency_ms": 19234.57
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the role of hydrogen in decarbonization, so I cannot answer this question from the provided context.",
+      "reference_answer": "Hydrogen fuel cells offer potential for heavy transport and industrial decarbonization.",
+      "latency_ms": 23911.0
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how the International Space Station contributes to scientific research, so I cannot answer this question from the provided context.",
+      "reference_answer": "The ISS has been continuously occupied since 2000, providing a platform for microgravity research.",
+      "latency_ms": 25476.55
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about why deepfakes are a threat to information integrity, so I cannot answer this question from the provided context.",
+      "reference_answer": "Deepfake technology can create convincing fake media, threatening trust in information.",
+      "latency_ms": 23546.42
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how precision agriculture helps with climate adaptation, so I cannot answer this question from the provided context.",
+      "reference_answer": "Precision agriculture uses technology to optimize farming practices, improving resilience to climate variability.",
+      "latency_ms": 20721.48
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the significance of Shor's algorithm, so I cannot answer this question from the provided context.",
+      "reference_answer": "Shor's algorithm can factor integers exponentially faster than classical algorithms, threatening RSA encryption.",
+      "latency_ms": 22787.01
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the effects of climate change on agriculture, so I cannot answer this question from the provided context.",
+      "reference_answer": "Climate change affects agriculture through rising temperatures reducing crop yields, altered precipitation patterns, and increased extreme weather events.",
+      "latency_ms": 25266.96
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how AI is transforming healthcare, so I cannot answer this question from the provided context.",
+      "reference_answer": "AI is used in drug discovery, protein structure prediction, and diagnostic imaging, while personalized medicine tailors treatments to individual genetics.",
+      "latency_ms": 16337.1
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the challenges and opportunities in quantum computing, so I cannot answer this question from the provided context.",
+      "reference_answer": "Challenges include decoherence and error correction, while opportunities span drug discovery, cryptography, and materials science.",
+      "latency_ms": 25725.01
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide any information about the future of renewable energy, so I cannot answer this question from the provided context.",
+      "reference_answer": "Renewable energy is growing with falling costs, but intermittency, storage, and grid integration remain challenges.",
+      "latency_ms": 26043.33
+    },
+    {
+      "query": "",
+      "answer": "Sure, here's the answer to your question:\n\nAccording to the context, AI raises important ethical concerns, including:\n\n- Algorithmic bias in hiring, lending, and criminal justice.\n- Deepfake technology poses threats to information integrity.\n- Privacy concerns from facial recognition surveillance and data collection practices.\n- Autonomous weapons raise questions about accountability in warfare.\n- The alignment problem asks how to ensure AI systems act in accordance with human values.",
+      "reference_answer": "AI raises concerns about bias, privacy, deepfakes, autonomous weapons, and the alignment problem.",
+      "latency_ms": 13528.91
+    },
+    {
+      "query": "",
+      "answer": "According to the context, India's economy is growing at 7.2% in FY2024, making it one of the fastest-growing major economies. The services sector contributes about 54% of GDP, followed by industry at 26% and agriculture at 20%.",
+      "reference_answer": "India is growing rapidly at 7.2% GDP growth, driven by services, digital payments (UPI), and manufacturing initiatives.",
+      "latency_ms": 22244.53
+    },
+    {
+      "query": "",
+      "answer": "Sure, here's the answer to the question:\n\nThe context does not provide any information about recent progress in space exploration, so I cannot answer this question from the provided context.",
+      "reference_answer": "Recent milestones include JWST, Chandrayaan-3, SpaceX reusable rockets, and the Artemis program.",
+      "latency_ms": 27208.86
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how modern technologies are fighting climate change, so I cannot answer this question from the provided context.",
+      "reference_answer": "Technologies include solar and wind energy, EVs, battery storage, hydrogen fuel cells, and nuclear fusion.",
+      "latency_ms": 16630.6
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the latest breakthroughs in biotechnology, so I cannot answer this question from the provided context.",
+      "reference_answer": "Key breakthroughs include CRISPR gene editing, mRNA vaccines, CAR-T therapy, and AI-driven protein structure prediction.",
+      "latency_ms": 26896.57
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about classical and quantum computing approaches, so I cannot answer this question from the provided context.",
+      "reference_answer": "Classical computers use binary bits, while quantum computers use qubits in superposition, enabling parallel exploration of solutions.",
+      "latency_ms": 24815.5
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about how to achieve sustainable food production, so I cannot answer this question from the provided context.",
+      "reference_answer": "Strategies include drought-resistant crops, precision agriculture, improved irrigation, and regenerative farming practices.",
+      "latency_ms": 8118.89
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide any information about the role of deep learning in modern AI, so I cannot answer this question from the provided context.",
+      "reference_answer": "Deep learning uses multi-layer neural networks to learn hierarchical data representations, powering LLMs and computer vision.",
+      "latency_ms": 22919.0
+    },
+    {
+      "query": "",
+      "answer": "The passage does not provide information about how AI should be regulated, so I cannot answer this question from the provided context.",
+      "reference_answer": "The EU AI Act classifies AI by risk level, while explainable AI and accountability frameworks aim to ensure responsible use.",
+      "latency_ms": 10983.49
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about the energy storage problem, so I cannot answer this question from the provided context.",
+      "reference_answer": "Renewable intermittency requires storage solutions including batteries, pumped hydro, compressed air, and hydrogen.",
+      "latency_ms": 25423.2
+    },
+    {
+      "query": "",
+      "answer": "The context does not provide information about how personalized medicine is changing healthcare, so I cannot answer this question from the provided context.",
+      "reference_answer": "Personalized medicine tailors treatments based on individual genetic profiles, improving efficacy and reducing side effects.",
+      "latency_ms": 15957.54
+    }
+  ]
+}
